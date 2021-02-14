@@ -32,6 +32,9 @@ export default class CommandContext {
     constructor(cmdsModule: CommandsModule<any>, event: ClientEvent, args: string[], prefix: string, message: Eris.Message);
     /** Shorthand for `message.channel.createMessage`. */
     send(content: Eris.MessageContent, file?: Eris.MessageFile | Eris.MessageFile[]): Promise<Eris.Message<Eris.TextableChannel>>;
-    /** Sends a message with the author's mention prepended to it. */
+    /**
+     * Sends a message with the author's mention prepended to it.
+     * Only prepends in guild channels.
+     */
     reply(content: Eris.MessageContent, file?: Eris.MessageFile | Eris.MessageFile[]): Promise<Eris.Message<Eris.TextableChannel>>;
 }

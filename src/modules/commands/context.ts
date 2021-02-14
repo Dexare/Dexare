@@ -58,13 +58,16 @@ export default class CommandContext {
     return this.message.channel.createMessage(content, file);
   }
 
-  /** Sends a message with the author's mention prepended to it. */
+  /**
+   * Sends a message with the author's mention prepended to it.
+   * Only prepends in guild channels.
+   */
   reply(
     content: Eris.MessageContent,
     file?: Eris.MessageFile | Eris.MessageFile[]
   ) {
     if (typeof content === 'string') content = { content };
-    if (content.content)
+    if (content.content && this.guild)
       content.content = `${this.message.author.mention}, ${content.content}`;
     return this.message.channel.createMessage(content, file);
   }
