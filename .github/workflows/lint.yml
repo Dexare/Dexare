@@ -6,6 +6,7 @@ on:
       - "!docs"
     paths:
       - "src/**"
+      - ".eslintignore"
       - ".eslintrc.*"
       - ".prettierrc"
       - ".github/workflows/lint.yml"
