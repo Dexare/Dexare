@@ -172,7 +172,7 @@ export default class CommandsModule<
     });
   }
 
-  async onMessage(event: ClientEvent, message: Eris.Message) {
+  private async onMessage(event: ClientEvent, message: Eris.Message) {
     if (message.author.bot || message.author.system) return;
 
     const prefixRegex = this._buildPrefixes(event);

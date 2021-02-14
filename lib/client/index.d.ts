@@ -17,7 +17,7 @@ export interface BaseConfig {
  * @private
  */
 export interface DexareClientEvents extends ErisEvents {
-    logger(level: string, module: string, args: any[], extra?: LoggerExtra): void;
+    logger(level: string, group: string, args: any[], extra?: LoggerExtra): void;
 }
 /** @hidden */
 export declare type DexareEvents = DexareClientEvents & {

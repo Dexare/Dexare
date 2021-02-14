@@ -1,7 +1,5 @@
 import Collection from '@discordjs/collection';
-import Eris from 'eris';
 import DexareClient from '../../client';
-import { ClientEvent } from '../../client/events';
 import DexareModule from '../../module';
 import DexareCommand from './command';
 import CommandContext from './context';
@@ -20,5 +18,5 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
     private _escapeRegExp;
     private _buildPrefixes;
     private _logCommand;
-    onMessage(event: ClientEvent, message: Eris.Message): Promise<void>;
+    private onMessage;
 }
