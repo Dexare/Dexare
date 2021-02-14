@@ -1,0 +1,42 @@
+{
+  "name": "dexare",
+  "version": "1.0.0",
+  "description": "Modular and extendable Discord bot framework",
+  "main": "index.js",
+  "repository": "https://github.com/Snazzah/Dexare",
+  "bugs": {
+    "url": "https://github.com/Snazzah/Dexare/issues"
+  },
+  "author": "Snazzah",
+  "license": "MIT",
+  "funding": {
+    "url": "https://github.com/sponsors/Snazzah"
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "npx eslint --ext .ts ./src",
+    "lint:fix": "npx eslint --ext .ts ./src --fix",
+    "gpr": "ts-node scripts/gpr",
+    "prepublishOnly": "npm run lint:fix"
+  },
+  "dependencies": {
+    "@discordjs/collection": "^0.1.6",
+    "common-tags": "^1.8.0",
+    "eris": "^0.14.0",
+    "eventemitter3": "^4.0.7",
+    "lodash": "^4.17.20"
+  },
+  "devDependencies": {
+    "@types/common-tags": "^1.8.0",
+    "@types/lodash": "^4.14.168",
+    "@types/node": "^14.14.22",
+    "@typescript-eslint/eslint-plugin": "^4.14.1",
+    "@typescript-eslint/parser": "^4.14.1",
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  }
+}
