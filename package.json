@@ -1,6 +1,6 @@
 {
   "name": "dexare",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Modular and extendable Discord bot framework",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -23,6 +23,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "changelog": "ts-node scripts/changelog",
     "lint": "npx eslint --ext .ts ./src",
     "lint:fix": "npx eslint --ext .ts ./src --fix",
     "gpr": "ts-node scripts/gpr",
