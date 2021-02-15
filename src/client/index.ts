@@ -44,6 +44,7 @@ export default class DexareClient<
   // eslint-disable-next-line no-undef
   private readonly _typingIntervals = new Map<string, NodeJS.Timeout>();
   private readonly _hookedEvents: string[] = [];
+  private _erisEventsLogged = false;
 
   constructor(config: T) {
     // eslint-disable-next-line constructor-super
@@ -78,11 +79,9 @@ export default class DexareClient<
    * Log events to console.
    * @param logLevel The level to log at.
    * @param excludeModules The modules to exclude
-   * @param includeErisEvents Whether to log eris debug/warn/error events.
    */
   logToConsole(
     logLevel: 'debug' | 'info' | 'warn' | 'error' = 'info',
-    includeErisEvents = true,
     excludeModules: string[] = []
   ) {
     const levels = ['debug', 'info', 'warn', 'error'];
@@ -101,17 +100,52 @@ export default class DexareClient<
       logFunc(level.toUpperCase(), `[${moduleName}]`, ...args);
     });
 
-    if (includeErisEvents) {
-      this.on('debug', (message, id) =>
-        this.emit('logger', 'debug', 'eris', [message], { id })
-      );
-      this.on('warn', (message, id) =>
-        this.emit('logger', 'warn', 'eris', [message], { id })
-      );
-      this.on('error', (error, id) =>
-        this.emit('logger', 'warn', 'eris', [error], { id })
-      );
-    }
+    return this;
+  }
+
+  /** Logs informational Eris events to Dexare's logger event. */
+  logErisEvents() {
+    if (this._erisEventsLogged) return this;
+    this._erisEventsLogged = true;
+
+    this.on('ready', () =>
+      this.emit('logger', 'info', 'eris', ['All shards ready.'])
+    );
+    this.on('disconnect', () =>
+      this.emit('logger', 'info', 'eris', ['All shards disconnected.'])
+    );
+    this.on('reconnecting', () =>
+      this.emit('logger', 'info', 'eris', ['Reconnecting...'])
+    );
+
+    this.on('debug', (message, id) =>
+      this.emit('logger', 'debug', 'eris', [message], { id })
+    );
+    this.on('warn', (message, id) =>
+      this.emit('logger', 'warn', 'eris', [message], { id })
+    );
+    this.on('error', (error, id) =>
+      this.emit('logger', 'error', 'eris', [error], { id })
+    );
+
+    this.on('connect', () =>
+      this.emit('logger', 'info', 'eris', ['Shard connected.'])
+    );
+    this.on('hello', () =>
+      this.emit('logger', 'debug', 'eris', ['Shard recieved hello.'])
+    );
+
+    this.on('shardReady', (id) =>
+      this.emit('logger', 'info', 'eris', ['Shard ready.'], { id })
+    );
+    this.on('shardResume', (id) =>
+      this.emit('logger', 'warn', 'eris', ['Shard resumed.'], { id })
+    );
+    this.on('shardDisconnect', (error, id) =>
+      this.emit('logger', 'warn', 'eris', ['Shard disconnected.', error], {
+        id
+      })
+    );
 
     return this;
   }

@@ -35,6 +35,7 @@ export default class DexareClient<T extends BaseConfig = BaseConfig> extends Dex
     readonly collector: CommandsModule<this>;
     private readonly _typingIntervals;
     private readonly _hookedEvents;
+    private _erisEventsLogged;
     constructor(config: T);
     /**
      * Load modules into the client.
@@ -45,9 +46,10 @@ export default class DexareClient<T extends BaseConfig = BaseConfig> extends Dex
      * Log events to console.
      * @param logLevel The level to log at.
      * @param excludeModules The modules to exclude
-     * @param includeErisEvents Whether to log eris debug/warn/error events.
      */
-    logToConsole(logLevel?: 'debug' | 'info' | 'warn' | 'error', includeErisEvents?: boolean, excludeModules?: string[]): this;
+    logToConsole(logLevel?: 'debug' | 'info' | 'warn' | 'error', excludeModules?: string[]): this;
+    /** Logs informational Eris events to Dexare's logger event. */
+    logErisEvents(): this;
     /**
      * Register an event.
      * @param event The event to register
