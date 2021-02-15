@@ -76,6 +76,17 @@ export default class DexareClient<
   }
 
   /**
+   * Unloads a module.
+   * @param moduleName The module to unload
+   */
+  async unloadModule(moduleName: string) {
+    if (!this.modules.has(moduleName)) return;
+    const mod = this.modules.get(moduleName)!;
+    await mod.unload();
+    this.modules.delete(moduleName);
+  }
+
+  /**
    * Log events to console.
    * @param logLevel The level to log at.
    * @param excludeModules The modules to exclude

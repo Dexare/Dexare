@@ -43,6 +43,11 @@ export default class DexareClient<T extends BaseConfig = BaseConfig> extends Dex
      */
     loadModules(...moduleObjects: any[]): this;
     /**
+     * Unloads a module.
+     * @param moduleName The module to unload
+     */
+    unloadModule(moduleName: string): Promise<void>;
+    /**
      * Log events to console.
      * @param logLevel The level to log at.
      * @param excludeModules The modules to exclude
