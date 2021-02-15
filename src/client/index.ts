@@ -62,7 +62,7 @@ export default class DexareClient<
    * @param moduleObjects The modules to load.
    */
   loadModules(...moduleObjects: any[]) {
-    const modules = moduleObjects.map(this._resolveModule);
+    const modules = moduleObjects.map(this._resolveModule.bind(this));
     const loadOrder = this._getLoadOrder(modules);
 
     for (const modName of loadOrder) {
