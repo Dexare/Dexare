@@ -57,6 +57,10 @@ export default class DexareClient<
     this.modules.set('collector', this.collector);
   }
 
+  /**
+   * Load modules into the client.
+   * @param moduleObjects The modules to load.
+   */
   loadModules(...moduleObjects: any[]) {
     const modules = moduleObjects.map(this._resolveModule);
     const loadOrder = this._getLoadOrder(modules);
@@ -112,6 +116,11 @@ export default class DexareClient<
     return this;
   }
 
+  /**
+   * Register an event.
+   * @param event The event to register
+   * @param listener The event listener
+   */
   on<E extends keyof DexareEvents>(event: E, listener: DexareEvents[E]) {
     if (
       typeof event === 'string' &&
@@ -133,10 +142,12 @@ export default class DexareClient<
     return new Promise((resolve) => this.once(event, resolve));
   }
 
+  /** Connects and logs in to Discord. */
   connect() {
     return this.bot.connect();
   }
 
+  /** Disconnects the bot. */
   disconnect(reconnect: boolean | 'auto' = false) {
     return this.bot.disconnect({ reconnect });
   }
@@ -177,6 +188,7 @@ export default class DexareClient<
     this._typingIntervals.delete(channelID);
   }
 
+  /** @hidden */
   private _resolveModule(moduleObject: any) {
     if (typeof moduleObject === 'function')
       moduleObject = new moduleObject(this);
@@ -188,6 +200,7 @@ export default class DexareClient<
     return moduleObject;
   }
 
+  /** @hidden */
   private _getLoadOrder(modules: DexareModule<any>[]) {
     const loadOrder: string[] = [];
 

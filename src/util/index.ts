@@ -31,10 +31,19 @@ export async function iterateFolder(
   );
 }
 
+/**
+ * Escapes a string from regex.
+ * @param str The string to escape
+ */
 export function escapeRegex(str: string) {
   return str.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
 }
 
+/**
+ * Truncates string into a limit, appending an ellipsis when truncated.
+ * @param text The text to truncate
+ * @param limit The length to truncate at
+ */
 export function truncate(text: string, limit = 2000) {
   return text.length > limit ? text.slice(0, limit - 1) + '…' : text;
 }

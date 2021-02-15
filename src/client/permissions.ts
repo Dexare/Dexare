@@ -4,6 +4,7 @@ import LoggerHandler from '../util/logger';
 import { ClientEvent } from './events';
 import DexareClient from './index';
 
+/** The function for a permission. */
 export type PermissionFunction<T extends DexareClient<any>> = (
   object: Eris.Message | Eris.User | Eris.Member,
   client: T,
@@ -27,6 +28,7 @@ export const CorePermissions = [
   'dexare.elevated'
 ];
 
+/** The registry for permissions in Dexare. */
 export default class PermissionRegistry<T extends DexareClient<any>> {
   readonly permissions = new Collection<string, PermissionFunction<T>>();
   private readonly logger: LoggerHandler<T>;
@@ -74,6 +76,11 @@ export default class PermissionRegistry<T extends DexareClient<any>> {
     });
   }
 
+  /**
+   * Registers a new permission.
+   * @param key The permission key to register
+   * @param permission The permission function to use
+   */
   register(key: string, permission: PermissionFunction<T>): void {
     key = key.toLowerCase();
     if (CorePermissions.includes(key))
@@ -83,6 +90,10 @@ export default class PermissionRegistry<T extends DexareClient<any>> {
     this.permissions.set(key, permission);
   }
 
+  /**
+   * Unregisters a permission.
+   * @param key The permission to unregister
+   */
   unregister(key: string): boolean {
     key = key.toLowerCase();
     if (CorePermissions.includes(key))
@@ -92,6 +103,12 @@ export default class PermissionRegistry<T extends DexareClient<any>> {
     return this.permissions.delete(key);
   }
 
+  /**
+   * Check a permission.
+   * @param object The object to check with
+   * @param permission The permission to check
+   * @param event The client event to associate the function
+   */
   has(
     object: Eris.Message | Eris.User | Eris.Member,
     permission: string,
@@ -102,6 +119,13 @@ export default class PermissionRegistry<T extends DexareClient<any>> {
     return this.permissions.get(permission)!(object, this.client, event);
   }
 
+  /**
+   * Maps permissions into an object with true/false values and permission keys.
+   * @param object The object to check with
+   * @param permissions The permissions to map
+   * @param prevMap The previous map, if any
+   * @param event The client event to associate
+   */
   map(
     object: Eris.Message | Eris.User | Eris.Member,
     permissions: string[],

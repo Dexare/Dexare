@@ -11,11 +11,14 @@ import { HelpCommand } from './default/help';
 import { PingCommand } from './default/ping';
 import ArgumentInterpreter from './interpreter';
 
+/** The default command names available. */
 export type DefaultCommand = 'eval' | 'help' | 'ping';
 
+/** The commands module in Dexare. */
 export default class CommandsModule<
   T extends DexareClient<any>
 > extends DexareModule<T> {
+  /** The commands loaded into the module. */
   readonly commands = new Collection<string, DexareCommand>();
 
   constructor(client: T) {
@@ -24,14 +27,20 @@ export default class CommandsModule<
     });
   }
 
+  /** @hidden */
   load() {
     this.registerEvent('messageCreate', this.onMessage.bind(this));
   }
 
+  /** @hidden */
   unload() {
     this.unregisterAllEvents();
   }
 
+  /**
+   * Registers a command.
+   * @param command The command to register
+   */
   register(command: any) {
     if (typeof command === 'function') command = new command(this.client);
     else if (typeof command.default === 'function')
@@ -68,10 +77,19 @@ export default class CommandsModule<
     return command;
   }
 
+  /**
+   * Registers commands from a folder.
+   * @param path The path to register from.
+   */
   registerFromFolder(path: string) {
     return iterateFolder(path, async (file) => this.register(require(file)));
   }
 
+  /**
+   * Re-registers a command.
+   * @param command The new command
+   * @param oldCommand The old command
+   */
   reregister(command: any, oldCommand: DexareCommand) {
     if (typeof command === 'function') command = new command(this.client);
     else if (typeof command.default === 'function')
@@ -88,11 +106,20 @@ export default class CommandsModule<
     this.logger.info(`Reloaded command ${command.name}.`);
   }
 
+  /**
+   * Unregisters a command.
+   * @param command The command to unregister
+   */
   unregister(command: DexareCommand) {
     this.commands.delete(command.name);
     this.logger.info(`Unloaded command ${command.name}.`);
   }
 
+  /**
+   * Find commands with a query.
+   * @param searchString The string to search with
+   * @param ctx The context to check with
+   */
   find(searchString: string, ctx?: CommandContext) {
     if (!searchString) {
       return ctx
@@ -112,6 +139,10 @@ export default class CommandsModule<
     return matchedCommands;
   }
 
+  /**
+   * Registers default commands. (eval, help, ping)
+   * @param commands The commands to register, if not defined, all commands are used.
+   */
   registerDefaults(commands?: DefaultCommand[]) {
     if (!commands) commands = ['eval', 'help', 'ping'];
 
@@ -120,10 +151,12 @@ export default class CommandsModule<
     if (commands.includes('ping')) this.register(PingCommand);
   }
 
+  /** @hidden */
   private _escapeRegExp(string: string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
+  /** @hidden */
   private _buildPrefixes(event: ClientEvent) {
     const prefixes: string[] = [];
     let useMentionPrefix = false;
@@ -166,12 +199,14 @@ export default class CommandsModule<
     );
   }
 
+  /** @hidden */
   private _logCommand(level: string, command: DexareCommand, ...args: any[]) {
     return this.client.emit('logger', level, this.options.name, args, {
       command
     });
   }
 
+  /** @hidden */
   private async onMessage(event: ClientEvent, message: Eris.Message) {
     if (message.author.bot || message.author.system) return;
 

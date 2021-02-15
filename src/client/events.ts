@@ -31,6 +31,7 @@ export type EventGroup = {
   };
 };
 
+/** An object that temporarily stores the data of an event. */
 export class ClientEvent {
   /** The groups that have been (or will be) skipped. */
   readonly skipped: string[] = [];
@@ -73,6 +74,7 @@ export class ClientEvent {
   }
 }
 
+/** The event registry that handles the event system. */
 export default class EventRegistry<T extends DexareClient<any>> {
   private readonly eventGroups = new Collection<string, EventGroup>();
   private readonly loadOrders = new Map<keyof DexareEvents, string[]>();
@@ -85,6 +87,13 @@ export default class EventRegistry<T extends DexareClient<any>> {
     this.logger = new LoggerHandler<T>(this.client, 'dexare/events');
   }
 
+  /**
+   * Registers an event.
+   * @param groupName The group to register with
+   * @param event The event to register
+   * @param listener The event listener
+   * @param options The options for the event
+   */
   register<E extends keyof DexareEvents>(
     groupName: string,
     event: E,
@@ -106,6 +115,11 @@ export default class EventRegistry<T extends DexareClient<any>> {
     this.refreshLoadOrder(event);
   }
 
+  /**
+   * Unregisters an event from a group.
+   * @param groupName The group to unregister from
+   * @param event The event to unregister
+   */
   unregister(groupName: string, event: keyof DexareEvents) {
     this.logger.log(`Unregistering event '${event}' from group '${groupName}'`);
     if (!this.eventGroups.has(groupName)) return;
@@ -115,13 +129,23 @@ export default class EventRegistry<T extends DexareClient<any>> {
     this.refreshLoadOrder(event);
   }
 
+  /**
+   * Unregisters a group, removing all of their listeners.
+   * @param groupName The group to unregister
+   */
   unregisterGroup(groupName: string) {
     this.logger.log(`Unregistering event group '${groupName}'`);
+    const refresh = this.eventGroups.has(groupName);
     const result = this.eventGroups.delete(groupName);
-    if (this.eventGroups.has(groupName)) this.refreshAllLoadOrders();
+    if (refresh) this.refreshAllLoadOrders();
     return result;
   }
 
+  /**
+   * Emits an event.
+   * @param event The event to emit
+   * @param args The arcuments to emit with
+   */
   emit<E extends keyof DexareEvents>(
     event: E,
     ...args: Arguments<DexareEvents[E]>
@@ -143,6 +167,11 @@ export default class EventRegistry<T extends DexareClient<any>> {
     })();
   }
 
+  /**
+   * Emits an event asynchronously.
+   * @param event The event to emit
+   * @param args The arcuments to emit with
+   */
   async emitAsync<E extends keyof DexareEvents>(
     event: E,
     ...args: Arguments<DexareEvents[E]>

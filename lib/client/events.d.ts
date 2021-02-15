@@ -22,6 +22,7 @@ export declare type EventGroup = {
         listener: (event: ClientEvent, ...args: any[]) => Promise<void> | void;
     };
 };
+/** An object that temporarily stores the data of an event. */
 export declare class ClientEvent {
     /** The groups that have been (or will be) skipped. */
     readonly skipped: string[];
@@ -48,6 +49,7 @@ export declare class ClientEvent {
      */
     set(key: string, data: any): Map<string, any>;
 }
+/** The event registry that handles the event system. */
 export default class EventRegistry<T extends DexareClient<any>> {
     private readonly eventGroups;
     private readonly loadOrders;
@@ -55,13 +57,39 @@ export default class EventRegistry<T extends DexareClient<any>> {
     private readonly logger;
     private readonly client;
     constructor(client: T);
+    /**
+     * Registers an event.
+     * @param groupName The group to register with
+     * @param event The event to register
+     * @param listener The event listener
+     * @param options The options for the event
+     */
     register<E extends keyof DexareEvents>(groupName: string, event: E, listener: EventHandlers[E], options?: {
         before?: string[];
         after?: string[];
     }): void;
+    /**
+     * Unregisters an event from a group.
+     * @param groupName The group to unregister from
+     * @param event The event to unregister
+     */
     unregister(groupName: string, event: keyof DexareEvents): void;
+    /**
+     * Unregisters a group, removing all of their listeners.
+     * @param groupName The group to unregister
+     */
     unregisterGroup(groupName: string): boolean;
+    /**
+     * Emits an event.
+     * @param event The event to emit
+     * @param args The arcuments to emit with
+     */
     emit<E extends keyof DexareEvents>(event: E, ...args: Arguments<DexareEvents[E]>): void;
+    /**
+     * Emits an event asynchronously.
+     * @param event The event to emit
+     * @param args The arcuments to emit with
+     */
     emitAsync<E extends keyof DexareEvents>(event: E, ...args: Arguments<DexareEvents[E]>): Promise<void>;
     private hookEvent;
     private refreshLoadOrder;

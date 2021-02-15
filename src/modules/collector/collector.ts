@@ -5,14 +5,17 @@ import DexareClient, { DexareEvents } from '../../client';
 import { EventHandlers } from '../../client/events';
 import TypedEmitter from '../../util/typedEmitter';
 
+/** @hidden */
 export type CollectorEvents = {
   collect: (...args: any[]) => void;
   dispose: (...args: any[]) => void;
   end: (collected: Collection<any, any>, reason: string) => void;
 };
 
+/** @hidden */
 export type CollectorFilter = (...args: any[]) => boolean | Promise<boolean>;
 
+/** The options for a {@link Collector}. */
 export interface CollectorOptions {
   /** How long to run the collector for in milliseconds */
   time?: number;
@@ -22,6 +25,7 @@ export interface CollectorOptions {
   dispose?: boolean;
 }
 
+/** The options for {@link Collector#resetTimer}. */
 export interface ResetTimerOptions {
   /** How long to run the collector for in milliseconds */
   time?: number;
@@ -29,6 +33,7 @@ export interface ResetTimerOptions {
   idle?: number;
 }
 
+/** Class for defining a collector. */
 export default class Collector extends ((EventEmitter as any) as new () => TypedEmitter<CollectorEvents>) {
   readonly module: CollectorModule;
   readonly client: DexareClient;
@@ -47,7 +52,7 @@ export default class Collector extends ((EventEmitter as any) as new () => Typed
   // eslint-disable-next-line no-undef
   private _idletimeout: NodeJS.Timeout | null = null;
 
-  id: string;
+  readonly id: string;
 
   constructor(
     collectorModule: CollectorModule,

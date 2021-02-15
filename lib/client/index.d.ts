@@ -36,6 +36,10 @@ export default class DexareClient<T extends BaseConfig = BaseConfig> extends Dex
     private readonly _typingIntervals;
     private readonly _hookedEvents;
     constructor(config: T);
+    /**
+     * Load modules into the client.
+     * @param moduleObjects The modules to load.
+     */
     loadModules(...moduleObjects: any[]): this;
     /**
      * Log events to console.
@@ -44,13 +48,20 @@ export default class DexareClient<T extends BaseConfig = BaseConfig> extends Dex
      * @param includeErisEvents Whether to log eris debug/warn/error events.
      */
     logToConsole(logLevel?: 'debug' | 'info' | 'warn' | 'error', includeErisEvents?: boolean, excludeModules?: string[]): this;
+    /**
+     * Register an event.
+     * @param event The event to register
+     * @param listener The event listener
+     */
     on<E extends keyof DexareEvents>(event: E, listener: DexareEvents[E]): this;
     /**
      * Creates a promise that resolves on the next event
      * @param event The event to wait for
      */
     waitTill(event: keyof DexareEvents): Promise<unknown>;
+    /** Connects and logs in to Discord. */
     connect(): Promise<void>;
+    /** Disconnects the bot. */
     disconnect(reconnect?: boolean | 'auto'): void;
     /**
      * Start typing in a channel
@@ -67,7 +78,9 @@ export default class DexareClient<T extends BaseConfig = BaseConfig> extends Dex
      * @param channelID The channel's ID to stop typing in
      */
     stopTyping(channelID: string): void;
+    /** @hidden */
     private _resolveModule;
+    /** @hidden */
     private _getLoadOrder;
 }
 export {};

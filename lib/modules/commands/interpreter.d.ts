@@ -11,29 +11,16 @@ export declare class StringIterator {
      * @param string The string to iterate through
      */
     constructor(string: string);
-    /**
-     * Get the character on an index and moves the index forward.
-     * @returns {?string}
-     */
-    get(): string;
-    /**
-     * Reverts to the previous index.
-     */
+    /** Get the character on an index and moves the index forward. */
+    get(): string | undefined;
+    /** Reverts to the previous index. */
     undo(): void;
-    /**
-     * The previous character that was used
-     * @type {string}
-     */
+    /** The previous character that was used. */
     get prevChar(): string;
-    /**
-     * Whether or not the index is out of range
-     * @type {boolean}
-     */
+    /** Whether or not the index is out of range. */
     get inEOF(): boolean;
 }
-/**
- * Parses arguments from a message.
- */
+/** Parses arguments from a message. */
 export default class ArgumentInterpreter {
     static QUOTES: {
         [opening: string]: string;
@@ -42,17 +29,14 @@ export default class ArgumentInterpreter {
     string: string;
     allowWhitespace: boolean;
     /**
-     * @param {string} string The string that will be parsed for arguments
-     * @param {?Object} options The options for the interpreter
-     * @param {?boolean} [options.allowWhitespace=false] Whether to allow whitespace characters in the arguments
+     * @param string The string that will be parsed for arguments
+     * @param options The options for the interpreter
+     * @param options.allowWhitespace Whether to allow whitespace characters in the arguments
      */
     constructor(string: string, { allowWhitespace }?: {
         allowWhitespace?: boolean | undefined;
     });
-    /**
-     * Parses the arguements as strings.
-     * @returns {Array<String>}
-     */
+    /** Parses the arguements as strings. */
     parseAsStrings(): string[];
     /**
      * Checks whether or not a character is an opening quote

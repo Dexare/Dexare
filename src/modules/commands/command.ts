@@ -291,10 +291,9 @@ export default class DexareCommand {
   }
 
   /**
-   * Finalizes the return output
+   * Finalizes the return output.
    * @param response The response from the command run
    * @param ctx The context of the message
-   * @private
    */
   finalize(response: any, ctx: CommandContext) {
     if (

@@ -121,10 +121,9 @@ export default class DexareCommand {
     /** Unloads the command. */
     unload(): void;
     /**
-     * Finalizes the return output
+     * Finalizes the return output.
      * @param response The response from the command run
      * @param ctx The context of the message
-     * @private
      */
     finalize(response: any, ctx: CommandContext): Promise<Eris.Message<Eris.TextableChannel>> | undefined;
 }

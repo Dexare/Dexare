@@ -1,6 +1,7 @@
 import Eris from 'eris';
 import DexareCommand from './modules/commands/command';
 
+/** @hidden */
 export interface ErisEvents {
   ready: () => void;
   disconnect: () => void;
@@ -170,10 +171,12 @@ export interface ErisEvents {
   error: (err: Error, id: number) => void;
 }
 
+/** @hidden */
 interface LoggerExtraBase {
   [key: string]: any;
 }
 
+/** Extra data for logger events. */
 export interface LoggerExtra extends LoggerExtraBase {
   command?: DexareCommand;
   id?: number;

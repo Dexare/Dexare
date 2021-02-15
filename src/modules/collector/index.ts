@@ -8,11 +8,13 @@ import MessageCollector, {
   MessageCollectorOptions
 } from './message';
 
+/** The options for {@link CollectorModule#awaitMessages}. */
 export interface AwaitMessagesOptions extends MessageCollectorOptions {
   /** Stop/end reasons that cause the promise to reject */
   errors?: string[];
 }
 
+/** The Dexare module for collecting objects. */
 export default class CollectorModule<
   T extends DexareClient = DexareClient
 > extends DexareModule<T> {
@@ -24,6 +26,12 @@ export default class CollectorModule<
     });
   }
 
+  /**
+   * Creates a message collector.
+   * @param channel The channel to create the collector for
+   * @param filter The filter to use against new messages
+   * @param options The options for the collector.
+   */
   createMessageCollector(
     channel: Eris.TextableChannel,
     filter: MessageCollectorFilter,
@@ -32,6 +40,7 @@ export default class CollectorModule<
     return new MessageCollector(this, channel, filter, options);
   }
 
+  /** Awaits messages in a channel. */
   awaitMessages(
     channel: Eris.TextableChannel,
     filter: MessageCollectorFilter,
