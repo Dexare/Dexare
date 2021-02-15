@@ -26,7 +26,7 @@ export {
   LoggerHandler
 };
 
-export { DexareEvents } from './client';
+export { DexareEvents, BaseConfig } from './client';
 export { EventHandlers, EventGroup, ClientEvent } from './client/events';
 export {
   PermissionFunction,
@@ -49,3 +49,5 @@ export { iterateFolder } from './util';
 export { ErisEventNames, PermissionNames } from './constants';
 export { ModuleOptions } from './module';
 export { ErisEvents, LoggerExtra } from './types';
+
+export const VERSION: string = require('../package.json').version;
