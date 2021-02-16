@@ -23,6 +23,8 @@ export interface BaseConfig {
  */
 export interface DexareClientEvents extends ErisEvents {
   logger(level: string, group: string, args: any[], extra?: LoggerExtra): void;
+  beforeConnect(): void;
+  beforeDisconnect(reconnect: boolean | 'auto'): void;
 }
 
 /** @hidden */
@@ -168,12 +170,14 @@ export default class DexareClient<
   }
 
   /** Connects and logs in to Discord. */
-  connect() {
+  async connect() {
+    await this.events.emitAsync('beforeConnect');
     return this.bot.connect();
   }
 
   /** Disconnects the bot. */
-  disconnect(reconnect: boolean | 'auto' = false) {
+  async disconnect(reconnect: boolean | 'auto' = false) {
+    await this.events.emitAsync('beforeDisconnect', reconnect);
     return this.bot.disconnect({ reconnect });
   }
 

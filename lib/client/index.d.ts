@@ -18,6 +18,8 @@ export interface BaseConfig {
  */
 export interface DexareClientEvents extends ErisEvents {
     logger(level: string, group: string, args: any[], extra?: LoggerExtra): void;
+    beforeConnect(): void;
+    beforeDisconnect(reconnect: boolean | 'auto'): void;
 }
 /** @hidden */
 export declare type DexareEvents = DexareClientEvents & {
@@ -69,7 +71,7 @@ export default class DexareClient<T extends BaseConfig = BaseConfig> extends Dex
     /** Connects and logs in to Discord. */
     connect(): Promise<void>;
     /** Disconnects the bot. */
-    disconnect(reconnect?: boolean | 'auto'): void;
+    disconnect(reconnect?: boolean | 'auto'): Promise<void>;
     /**
      * Start typing in a channel
      * @param channelID The channel's ID to start typing in
