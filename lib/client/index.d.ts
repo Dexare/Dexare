@@ -89,5 +89,6 @@ export default class DexareClient<T extends BaseConfig = BaseConfig> extends Dex
     private _resolveModule;
     /** @hidden */
     private _getLoadOrder;
+    private _log;
 }
 export {};

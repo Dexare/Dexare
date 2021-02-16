@@ -68,6 +68,7 @@ export default class DexareClient<
 
     for (const modName of loadOrder) {
       const mod = modules.find((mod) => mod.options.name === modName)!;
+      this._log('debug', `Loading module "${modName}"`);
       this.modules.set(modName, mod);
       mod._load();
     }
@@ -82,6 +83,7 @@ export default class DexareClient<
   async unloadModule(moduleName: string) {
     if (!this.modules.has(moduleName)) return;
     const mod = this.modules.get(moduleName)!;
+    this._log('debug', `Unloading module "${moduleName}"`);
     await mod.unload();
     this.modules.delete(moduleName);
   }
@@ -239,5 +241,9 @@ export default class DexareClient<
     modules.forEach((mod) => insert(mod));
 
     return loadOrder;
+  }
+
+  private _log(level: string, ...args: any[]) {
+    this.emit('logger', level, 'dexare', args);
   }
 }

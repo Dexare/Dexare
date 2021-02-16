@@ -59,7 +59,7 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
 
     command.preload();
     this.commands.set(command.name, command);
-    this.logger.info(`Loaded command ${command.name}.`);
+    this.logger.log(`Registered command ${command.name}.`);
     return command;
   }
 
@@ -87,7 +87,7 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
 
     command.preload();
     this.commands.set(command.name, command);
-    this.logger.info(`Reloaded command ${command.name}.`);
+    this.logger.log(`Reregistered command ${command.name}.`);
   }
 
   /**
@@ -96,7 +96,7 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
    */
   unregister(command: DexareCommand) {
     this.commands.delete(command.name);
-    this.logger.info(`Unloaded command ${command.name}.`);
+    this.logger.log(`Unregistered command ${command.name}.`);
   }
 
   /**
