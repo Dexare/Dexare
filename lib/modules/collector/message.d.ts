@@ -1,5 +1,6 @@
 import Eris from 'eris';
 import CollectorModule from '.';
+import { DexareClient } from '../..';
 import { ClientEvent } from '../../client/events';
 import Collector, { CollectorOptions } from './collector';
 export declare type MessageCollectorFilter = (message: Eris.Message) => boolean;
@@ -19,7 +20,7 @@ export default class MessageCollector extends Collector {
     readonly channel: Eris.TextableChannel;
     readonly options: MessageCollectorOptions;
     received: number;
-    constructor(collectorModule: CollectorModule, channel: Eris.TextableChannel, filter: MessageCollectorFilter, options?: MessageCollectorOptions);
+    constructor(collectorModule: CollectorModule<DexareClient<any>>, channel: Eris.TextableChannel, filter: MessageCollectorFilter, options?: MessageCollectorOptions);
     /**
      * Handles a message for possible collection.
      * @param message The message that could be collected

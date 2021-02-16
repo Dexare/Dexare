@@ -35,7 +35,7 @@ export interface ResetTimerOptions {
 
 /** Class for defining a collector. */
 export default class Collector extends ((EventEmitter as any) as new () => TypedEmitter<CollectorEvents>) {
-  readonly module: CollectorModule;
+  readonly module: CollectorModule<DexareClient<any>>;
   readonly client: DexareClient;
 
   /** The filter applied to this collector */
@@ -54,7 +54,11 @@ export default class Collector extends ((EventEmitter as any) as new () => Typed
 
   readonly id: string;
 
-  constructor(collectorModule: CollectorModule, filter: CollectorFilter, options: CollectorOptions = {}) {
+  constructor(
+    collectorModule: CollectorModule<DexareClient<any>>,
+    filter: CollectorFilter,
+    options: CollectorOptions = {}
+  ) {
     // eslint-disable-next-line constructor-super
     super();
     this.module = collectorModule;

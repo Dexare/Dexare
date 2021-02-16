@@ -30,7 +30,7 @@ export interface ResetTimerOptions {
 declare const Collector_base: new () => TypedEmitter<CollectorEvents>;
 /** Class for defining a collector. */
 export default class Collector extends Collector_base {
-    readonly module: CollectorModule;
+    readonly module: CollectorModule<DexareClient<any>>;
     readonly client: DexareClient;
     /** The filter applied to this collector */
     readonly filter: CollectorFilter;
@@ -43,7 +43,7 @@ export default class Collector extends Collector_base {
     private _timeout;
     private _idletimeout;
     readonly id: string;
-    constructor(collectorModule: CollectorModule, filter: CollectorFilter, options?: CollectorOptions);
+    constructor(collectorModule: CollectorModule<DexareClient<any>>, filter: CollectorFilter, options?: CollectorOptions);
     registerEvent<E extends keyof DexareEvents>(event: E, handler: EventHandlers[E], options?: {
         before?: string[];
         after?: string[];

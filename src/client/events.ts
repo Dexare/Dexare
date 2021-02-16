@@ -76,11 +76,14 @@ export class ClientEvent {
 
 /** The event registry that handles the event system. */
 export default class EventRegistry<T extends DexareClient<any>> {
-  private readonly eventGroups = new Collection<string, EventGroup>();
+  /** The event groups in the registry. */
+  readonly eventGroups = new Collection<string, EventGroup>();
+  /** the client responsible for this registry. */
+  readonly client: T;
+
   private readonly loadOrders = new Map<keyof DexareEvents, string[]>();
   private readonly hookedEvents: (keyof DexareEvents)[] = [];
   private readonly logger: LoggerHandler<T>;
-  private readonly client: T;
 
   constructor(client: T) {
     this.client = client;

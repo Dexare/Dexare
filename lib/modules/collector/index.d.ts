@@ -10,7 +10,7 @@ export interface AwaitMessagesOptions extends MessageCollectorOptions {
     errors?: string[];
 }
 /** The Dexare module for collecting objects. */
-export default class CollectorModule<T extends DexareClient = DexareClient> extends DexareModule<T> {
+export default class CollectorModule<T extends DexareClient<any>> extends DexareModule<T> {
     readonly activeCollectors: Collection<string, Collector>;
     constructor(client: T);
     /**

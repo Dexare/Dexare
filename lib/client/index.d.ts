@@ -2,6 +2,7 @@ import Collection from '@discordjs/collection';
 import Eris from 'eris';
 import DexareModule from '../module';
 import CommandsModule from '../modules/commands';
+import CollectorModule from '../modules/collector';
 import { ErisEvents, LoggerExtra } from '../types';
 import LoggerHandler from '../util/logger';
 import TypedEmitter from '../util/typedEmitter';
@@ -34,7 +35,7 @@ export default class DexareClient<T extends BaseConfig = BaseConfig> extends Dex
     readonly logger: LoggerHandler<this>;
     readonly modules: Collection<string, DexareModule<this>>;
     readonly commands: CommandsModule<this>;
-    readonly collector: CommandsModule<this>;
+    readonly collector: CollectorModule<this>;
     private readonly _typingIntervals;
     private readonly _hookedEvents;
     private _erisEventsLogged;

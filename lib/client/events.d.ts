@@ -1,3 +1,4 @@
+import Collection from '@discordjs/collection';
 import { Arguments } from '../util/typedEmitter';
 import DexareClient, { DexareEvents } from './index';
 /** @hidden */
@@ -51,11 +52,13 @@ export declare class ClientEvent {
 }
 /** The event registry that handles the event system. */
 export default class EventRegistry<T extends DexareClient<any>> {
-    private readonly eventGroups;
+    /** The event groups in the registry. */
+    readonly eventGroups: Collection<string, EventGroup>;
+    /** the client responsible for this registry. */
+    readonly client: T;
     private readonly loadOrders;
     private readonly hookedEvents;
     private readonly logger;
-    private readonly client;
     constructor(client: T);
     /**
      * Registers an event.

@@ -4,7 +4,7 @@ import EventEmitter from 'eventemitter3';
 import { ErisEventNames } from '../constants';
 import DexareModule from '../module';
 import CommandsModule from '../modules/commands';
-import CollectorModule from '../modules/commands';
+import CollectorModule from '../modules/collector';
 import { ErisEvents, LoggerExtra } from '../types';
 import LoggerHandler from '../util/logger';
 import TypedEmitter from '../util/typedEmitter';
@@ -58,6 +58,7 @@ export default class DexareClient<
     this.modules.set('commands', this.commands);
     this.commands._load();
     this.modules.set('collector', this.collector);
+    this.collector._load();
   }
 
   /**
