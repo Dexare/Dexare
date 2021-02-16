@@ -7,7 +7,7 @@ import { escapeRegex } from '../../../util';
 const nl = '!!NL!!';
 const nlPattern = new RegExp(nl, 'g');
 
-export class EvalCommand extends DexareCommand {
+export default class EvalCommand extends DexareCommand {
   private _sensitivePattern?: RegExp;
   private hrStart?: [number, number];
   private lastResult?: any;
@@ -16,7 +16,7 @@ export class EvalCommand extends DexareCommand {
     super(client, {
       name: 'eval',
       description: 'Evaluates code.',
-      category: 'General',
+      category: 'Developer',
       userPermissions: ['dexare.elevated'],
       metadata: {
         examples: ['eval 1+1', 'eval someAsyncFunction.then(callback)'],
@@ -33,10 +33,14 @@ export class EvalCommand extends DexareCommand {
   }
 
   async run(ctx: CommandContext) {
-    const evalString: string = ctx.event
+    let evalString: string = ctx.event
       .get('commands/strippedContent')
-      .trim()
-      .slice(ctx.event.get('commands/commandName') + 1);
+      .slice(ctx.event.get('commands/commandName').length + 1)
+      .trim();
+
+    if (evalString.startsWith('```') && evalString.endsWith('```'))
+      evalString = evalString.replace(/(^.*?\s)|(\n.*$)/g, '');
+
     if (!evalString) return 'This command requires some code.';
 
     /* eslint-disable @typescript-eslint/no-unused-vars, no-unused-vars */

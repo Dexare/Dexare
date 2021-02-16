@@ -3,7 +3,7 @@ import DexareClient from '../../../client';
 import DexareCommand from '../command';
 import CommandContext from '../context';
 
-export class PingCommand extends DexareCommand {
+export default class PingCommand extends DexareCommand {
   constructor(client: DexareClient<any>) {
     super(client, {
       name: 'ping',

@@ -7,9 +7,9 @@ import DexareModule from '../../module';
 import { iterateFolder } from '../../util';
 import DexareCommand from './command';
 import CommandContext from './context';
-import { EvalCommand } from './default/eval';
-import { HelpCommand } from './default/help';
-import { PingCommand } from './default/ping';
+import EvalCommand from './default/eval';
+import HelpCommand from './default/help';
+import PingCommand from './default/ping';
 import ArgumentInterpreter from './interpreter';
 
 /** The default command names available. */

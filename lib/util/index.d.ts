@@ -16,3 +16,9 @@ export declare function escapeRegex(str: string): string;
  * @param limit The length to truncate at
  */
 export declare function truncate(text: string, limit?: number): string;
+/**
+ * Iterates an object's keys and runs a function with a key and value
+ * @param obj The object to iterate
+ * @param func The function to run each key
+ */
+export declare function keyValueForEach(obj: any, func: (key: string, value: any) => void): void;

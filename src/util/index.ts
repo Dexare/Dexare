@@ -46,3 +46,12 @@ export function escapeRegex(str: string) {
 export function truncate(text: string, limit = 2000) {
   return text.length > limit ? text.slice(0, limit - 1) + '…' : text;
 }
+
+/**
+ * Iterates an object's keys and runs a function with a key and value
+ * @param obj The object to iterate
+ * @param func The function to run each key
+ */
+export function keyValueForEach(obj: any, func: (key: string, value: any) => void) {
+  Object.keys(obj).map((key) => func(key, obj[key]));
+}

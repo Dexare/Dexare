@@ -2,14 +2,11 @@ import { oneLine, stripIndents } from 'common-tags';
 import Eris from 'eris';
 import { chunk } from 'lodash';
 import DexareClient from '../../../client';
-import { truncate } from '../../../util';
+import { keyValueForEach, truncate } from '../../../util';
 import DexareCommand from '../command';
 import CommandContext from '../context';
 
-const keyValueForEach = (obj: any, func: (key: string, value: any) => void) =>
-  Object.keys(obj).map((key) => func(key, obj[key]));
-
-export class HelpCommand extends DexareCommand {
+export default class HelpCommand extends DexareCommand {
   constructor(client: DexareClient<any>) {
     super(client, {
       name: 'help',

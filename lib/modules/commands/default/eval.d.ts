@@ -1,7 +1,7 @@
 import DexareClient from '../../../client';
 import DexareCommand from '../command';
 import CommandContext from '../context';
-export declare class EvalCommand extends DexareCommand {
+export default class EvalCommand extends DexareCommand {
     private _sensitivePattern?;
     private hrStart?;
     private lastResult?;
