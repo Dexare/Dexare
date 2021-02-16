@@ -1,5 +1,6 @@
 import Collection from '@discordjs/collection';
 import Eris from 'eris';
+import { join } from 'path';
 import DexareClient from '../../client';
 import { ClientEvent } from '../../client/events';
 import DexareModule from '../../module';
@@ -82,7 +83,9 @@ export default class CommandsModule<
    * @param path The path to register from.
    */
   registerFromFolder(path: string) {
-    return iterateFolder(path, async (file) => this.register(require(file)));
+    return iterateFolder(path, async (file) =>
+      this.register(require(join(process.cwd(), file)))
+    );
   }
 
   /**
