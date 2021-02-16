@@ -91,10 +91,7 @@ export default class DexareClient<
    * @param logLevel The level to log at.
    * @param excludeModules The modules to exclude
    */
-  logToConsole(
-    logLevel: 'debug' | 'info' | 'warn' | 'error' = 'info',
-    excludeModules: string[] = []
-  ) {
+  logToConsole(logLevel: 'debug' | 'info' | 'warn' | 'error' = 'info', excludeModules: string[] = []) {
     const levels = ['debug', 'info', 'warn', 'error'];
     const index = levels.indexOf(logLevel);
     this.on('logger', (level, moduleName, args) => {
@@ -119,29 +116,15 @@ export default class DexareClient<
     if (this._erisEventsLogged) return this;
     this._erisEventsLogged = true;
 
-    this.on('ready', () =>
-      this.emit('logger', 'info', 'eris', ['All shards ready.'])
-    );
-    this.on('disconnect', () =>
-      this.emit('logger', 'info', 'eris', ['All shards disconnected.'])
-    );
-    this.on('reconnecting', () =>
-      this.emit('logger', 'info', 'eris', ['Reconnecting...'])
-    );
+    this.on('ready', () => this.emit('logger', 'info', 'eris', ['All shards ready.']));
+    this.on('disconnect', () => this.emit('logger', 'info', 'eris', ['All shards disconnected.']));
+    this.on('reconnecting', () => this.emit('logger', 'info', 'eris', ['Reconnecting...']));
 
-    this.on('debug', (message, id) =>
-      this.emit('logger', 'debug', 'eris', [message], { id })
-    );
-    this.on('warn', (message, id) =>
-      this.emit('logger', 'warn', 'eris', [message], { id })
-    );
-    this.on('error', (error, id) =>
-      this.emit('logger', 'error', 'eris', [error], { id })
-    );
+    this.on('debug', (message, id) => this.emit('logger', 'debug', 'eris', [message], { id }));
+    this.on('warn', (message, id) => this.emit('logger', 'warn', 'eris', [message], { id }));
+    this.on('error', (error, id) => this.emit('logger', 'error', 'eris', [error], { id }));
 
-    this.on('connect', (id) =>
-      this.emit('logger', 'info', 'eris', ['Shard connected.'], { id })
-    );
+    this.on('connect', (id) => this.emit('logger', 'info', 'eris', ['Shard connected.'], { id }));
     this.on('hello', (trace, id) =>
       this.emit('logger', 'debug', 'eris', ['Shard recieved hello.'], {
         id,
@@ -149,12 +132,8 @@ export default class DexareClient<
       })
     );
 
-    this.on('shardReady', (id) =>
-      this.emit('logger', 'info', 'eris', ['Shard ready.'], { id })
-    );
-    this.on('shardResume', (id) =>
-      this.emit('logger', 'warn', 'eris', ['Shard resumed.'], { id })
-    );
+    this.on('shardReady', (id) => this.emit('logger', 'info', 'eris', ['Shard ready.'], { id }));
+    this.on('shardResume', (id) => this.emit('logger', 'warn', 'eris', ['Shard resumed.'], { id }));
     this.on('shardDisconnect', (error, id) =>
       this.emit('logger', 'warn', 'eris', ['Shard disconnected.', error], {
         id
@@ -170,11 +149,7 @@ export default class DexareClient<
    * @param listener The event listener
    */
   on<E extends keyof DexareEvents>(event: E, listener: DexareEvents[E]) {
-    if (
-      typeof event === 'string' &&
-      !this._hookedEvents.includes(event) &&
-      ErisEventNames.includes(event)
-    ) {
+    if (typeof event === 'string' && !this._hookedEvents.includes(event) && ErisEventNames.includes(event)) {
       this.bot.on(event, (...args: any[]) => this.emit(event, ...args));
       this._hookedEvents.push(event);
     }
@@ -210,9 +185,7 @@ export default class DexareClient<
     this._typingIntervals.set(
       channelID,
       setInterval(() => {
-        this.bot
-          .sendChannelTyping(channelID)
-          .catch(() => this.stopTyping(channelID));
+        this.bot.sendChannelTyping(channelID).catch(() => this.stopTyping(channelID));
       }, 5000)
     );
   }
@@ -238,10 +211,8 @@ export default class DexareClient<
 
   /** @hidden */
   private _resolveModule(moduleObject: any) {
-    if (typeof moduleObject === 'function')
-      moduleObject = new moduleObject(this);
-    else if (typeof moduleObject.default === 'function')
-      moduleObject = new moduleObject.default(this);
+    if (typeof moduleObject === 'function') moduleObject = new moduleObject(this);
+    else if (typeof moduleObject.default === 'function') moduleObject = new moduleObject.default(this);
 
     if (!(moduleObject instanceof DexareModule))
       throw new Error(`Invalid module object to load: ${moduleObject}`);
@@ -262,8 +233,7 @@ export default class DexareClient<
             );
           insert(dep);
         });
-      if (!loadOrder.includes(mod.options.name))
-        loadOrder.push(mod.options.name);
+      if (!loadOrder.includes(mod.options.name)) loadOrder.push(mod.options.name);
     }
 
     modules.forEach((mod) => insert(mod));

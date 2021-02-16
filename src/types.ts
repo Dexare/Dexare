@@ -15,27 +15,17 @@ export interface ErisEvents {
   channelCreate: (channel: Eris.AnyChannel) => void;
   channelDelete: (channel: Eris.AnyChannel) => void;
 
-  channelPinUpdate: (
-    channel: Eris.TextableChannel,
-    timestamp: number,
-    oldTimestamp: number
-  ) => void;
+  channelPinUpdate: (channel: Eris.TextableChannel, timestamp: number, oldTimestamp: number) => void;
 
   channelRecipientAdd: (channel: Eris.GroupChannel, user: Eris.User) => void;
   channelRecipientRemove: (channel: Eris.GroupChannel, user: Eris.User) => void;
 
-  channelUpdate: (
-    channel: Eris.AnyChannel,
-    oldChannel: Eris.OldGuildChannel | Eris.OldGroupChannel
-  ) => void;
+  channelUpdate: (channel: Eris.AnyChannel, oldChannel: Eris.OldGuildChannel | Eris.OldGroupChannel) => void;
 
   connect: (id: number) => void;
   shardPreReady: (id: number) => void;
 
-  friendSuggestionCreate: (
-    user: Eris.User,
-    reasons: Eris.FriendSuggestionReasons
-  ) => void;
+  friendSuggestionCreate: (user: Eris.User, reasons: Eris.FriendSuggestionReasons) => void;
 
   friendSuggestionDelete: (user: Eris.User) => void;
 
@@ -47,20 +37,13 @@ export interface ErisEvents {
 
   guildDelete: (guild: Eris.PossiblyUncachedGuild) => void;
 
-  guildEmojisUpdate: (
-    guild: Eris.Guild,
-    emojis: Eris.Emoji[],
-    oldEmojis: Eris.Emoji[]
-  ) => void;
+  guildEmojisUpdate: (guild: Eris.Guild, emojis: Eris.Emoji[], oldEmojis: Eris.Emoji[]) => void;
 
   guildMemberAdd: (guild: Eris.Guild, member: Eris.Member) => void;
 
   guildMemberChunk: (guild: Eris.Guild, members: Eris.Member[]) => void;
 
-  guildMemberRemove: (
-    guild: Eris.Guild,
-    member: Eris.Member | Eris.MemberPartial
-  ) => void;
+  guildMemberRemove: (guild: Eris.Guild, member: Eris.Member | Eris.MemberPartial) => void;
 
   guildMemberUpdate: (
     guild: Eris.Guild,
@@ -71,11 +54,7 @@ export interface ErisEvents {
   guildRoleCreate: (guild: Eris.Guild, role: Eris.Role) => void;
   guildRoleDelete: (guild: Eris.Guild, role: Eris.Role) => void;
 
-  guildRoleUpdate: (
-    guild: Eris.Guild,
-    role: Eris.Role,
-    oldRole: Eris.OldRole
-  ) => void;
+  guildRoleUpdate: (guild: Eris.Guild, role: Eris.Role, oldRole: Eris.OldRole) => void;
 
   guildUnavailable: (guild: Eris.UnavailableGuild) => void;
   unavailableGuildCreate: (guild: Eris.UnavailableGuild) => void;
@@ -92,10 +71,7 @@ export interface ErisEvents {
   messageDelete: (message: Eris.PossiblyUncachedMessage) => void;
   messageReactionRemoveAll: (message: Eris.PossiblyUncachedMessage) => void;
 
-  messageReactionRemoveEmoji: (
-    message: Eris.PossiblyUncachedMessage,
-    emoji: Eris.PartialEmoji
-  ) => void;
+  messageReactionRemoveEmoji: (message: Eris.PossiblyUncachedMessage, emoji: Eris.PartialEmoji) => void;
 
   messageDeleteBulk: (messages: Eris.PossiblyUncachedMessage[]) => void;
 
@@ -111,15 +87,9 @@ export interface ErisEvents {
     userID: string
   ) => void;
 
-  messageUpdate: (
-    message: Eris.Message,
-    oldMessage: Eris.OldMessage | null
-  ) => void;
+  messageUpdate: (message: Eris.Message, oldMessage: Eris.OldMessage | null) => void;
 
-  presenceUpdate: (
-    message: Eris.Member | Eris.Relationship,
-    oldPresence: Eris.Presence | null
-  ) => void;
+  presenceUpdate: (message: Eris.Member | Eris.Relationship, oldPresence: Eris.Presence | null) => void;
 
   rawREST: (request: Eris.RawRESTRequest) => void;
 
@@ -129,10 +99,7 @@ export interface ErisEvents {
   relationshipAdd: (relationship: Eris.Relationship) => void;
   relationshipRemove: (relationship: Eris.Relationship) => void;
 
-  relationshipUpdate: (
-    relationship: Eris.Relationship,
-    oldRelationship: { type: number }
-  ) => void;
+  relationshipUpdate: (relationship: Eris.Relationship, oldRelationship: { type: number }) => void;
 
   typingStart: (
     channel: Eris.TextableChannel | { id: string },
@@ -142,14 +109,8 @@ export interface ErisEvents {
 
   userUpdate: (user: Eris.User, oldUser: Eris.PartialUser | null) => void;
 
-  voiceChannelJoin: (
-    member: Eris.Member,
-    newChannel: Eris.VoiceChannel
-  ) => void;
-  voiceChannelLeave: (
-    member: Eris.Member,
-    oldChannel: Eris.VoiceChannel
-  ) => void;
+  voiceChannelJoin: (member: Eris.Member, newChannel: Eris.VoiceChannel) => void;
+  voiceChannelLeave: (member: Eris.Member, oldChannel: Eris.VoiceChannel) => void;
 
   voiceChannelSwitch: (
     member: Eris.Member,

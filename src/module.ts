@@ -57,12 +57,7 @@ export default class DexareModule<T extends DexareClient<any>> {
     handler: EventHandlers[E],
     options?: { before?: string[]; after?: string[] }
   ) {
-    return this.client.events.register(
-      this.options.name,
-      event,
-      handler,
-      options
-    );
+    return this.client.events.register(this.options.name, event, handler, options);
   }
 
   /**

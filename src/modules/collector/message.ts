@@ -42,8 +42,7 @@ export default class MessageCollector extends Collector {
       if (channel.id === this.channel.id) this.stop('channelDelete');
     });
     this.registerEvent('guildDelete', (_, guild) => {
-      if ('guild' in this.channel && guild.id === this.channel.guild.id)
-        this.stop('guildDelete');
+      if ('guild' in this.channel && guild.id === this.channel.guild.id) this.stop('guildDelete');
     });
   }
 
@@ -53,8 +52,7 @@ export default class MessageCollector extends Collector {
    */
   collect(event: ClientEvent, message: Eris.Message) {
     if (message.channel.id !== this.channel.id) return null;
-    if (this.options.skip)
-      this.options.skip.forEach((group) => event.skip(group));
+    if (this.options.skip) this.options.skip.forEach((group) => event.skip(group));
     this.received++;
     return {
       key: message.id,
@@ -72,13 +70,8 @@ export default class MessageCollector extends Collector {
 
   /** Checks after un/collection to see if the collector is done. */
   endReason() {
-    if (this.options.max && this.collected.size >= this.options.max)
-      return 'limit';
-    if (
-      this.options.maxProcessed &&
-      this.received === this.options.maxProcessed
-    )
-      return 'processedLimit';
+    if (this.options.max && this.collected.size >= this.options.max) return 'limit';
+    if (this.options.maxProcessed && this.received === this.options.maxProcessed) return 'processedLimit';
     return null;
   }
 }

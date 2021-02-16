@@ -104,20 +104,10 @@ export default class DexareCommand {
    */
   hasPermission(ctx: CommandContext, event?: ClientEvent): boolean | string {
     if (this.userPermissions) {
-      let permissionMap =
-        event && event.has('dexare/permissionMap')
-          ? event.get('dexare/permissionMap')
-          : {};
-      permissionMap = this.client.permissions.map(
-        ctx.message,
-        this.userPermissions,
-        permissionMap,
-        event
-      );
+      let permissionMap = event && event.has('dexare/permissionMap') ? event.get('dexare/permissionMap') : {};
+      permissionMap = this.client.permissions.map(ctx.message, this.userPermissions, permissionMap, event);
       if (event) event.set('dexare/permissionMap', permissionMap);
-      const missing = this.userPermissions.filter(
-        (perm: string) => !permissionMap[perm]
-      );
+      const missing = this.userPermissions.filter((perm: string) => !permissionMap[perm]);
 
       if (missing.length > 0) {
         if (missing.includes('dexare.elevated'))
@@ -132,9 +122,7 @@ export default class DexareCommand {
           }" permission.`;
         }
         return oneLine`
-          The \`${
-            this.name
-          }\` command requires you to have the following permissions:
+          The \`${this.name}\` command requires you to have the following permissions:
           ${missing.map((perm) => PermissionNames[perm] || perm).join(', ')}
         `;
       }
@@ -156,9 +144,7 @@ export default class DexareCommand {
     switch (reason) {
       case 'permission': {
         if (data.response) return ctx.reply(data.response);
-        return ctx.reply(
-          `You do not have permission to use the \`${this.name}\` command.`
-        );
+        return ctx.reply(`You do not have permission to use the \`${this.name}\` command.`);
       }
       case 'clientPermissions': {
         if (data.missing.length === 1) {
@@ -170,18 +156,14 @@ export default class DexareCommand {
         }
         return ctx.reply(oneLine`
 					I need the following permissions for the \`${this.name}\` command to work:
-					${data.missing
-            .map(
-              (perm: string) => PermissionNames['discord.' + perm.toLowerCase()]
-            )
-            .join(', ')}
+					${data.missing.map((perm: string) => PermissionNames['discord.' + perm.toLowerCase()]).join(', ')}
 				`);
       }
       case 'throttling': {
         return ctx.reply(
-          `You may not use the \`${
-            this.name
-          }\` command again for another ${data.remaining.toFixed(1)} seconds.`
+          `You may not use the \`${this.name}\` command again for another ${data.remaining.toFixed(
+            1
+          )} seconds.`
         );
       }
       default:
@@ -195,9 +177,7 @@ export default class DexareCommand {
    * @param ctx Command context the command is running from
    */
   onError(err: Error, ctx: CommandContext) {
-    return ctx.reply(
-      `An error occurred while running the \`${this.name}\` command.`
-    );
+    return ctx.reply(`An error occurred while running the \`${this.name}\` command.`);
   }
 
   /**
@@ -215,27 +195,14 @@ export default class DexareCommand {
    * @param userID ID of the user to throttle for
    * @private
    */
-  async throttle(
-    object: Eris.Message | Eris.User | Eris.Member,
-    event?: ClientEvent
-  ) {
+  async throttle(object: Eris.Message | Eris.User | Eris.Member, event?: ClientEvent) {
     if (!this.throttling) return null;
 
     if (this.throttling.bypass && this.throttling.bypass.length) {
-      let permissionMap =
-        event && event.has('dexare/permissionMap')
-          ? event.get('dexare/permissionMap')
-          : {};
-      permissionMap = this.client.permissions.map(
-        object,
-        this.throttling.bypass,
-        permissionMap,
-        event
-      );
+      let permissionMap = event && event.has('dexare/permissionMap') ? event.get('dexare/permissionMap') : {};
+      permissionMap = this.client.permissions.map(object, this.throttling.bypass, permissionMap, event);
       if (event) event.set('dexare/permissionMap', permissionMap);
-      const missing = this.throttling.bypass.filter(
-        (perm: string) => !permissionMap[perm]
-      );
+      const missing = this.throttling.bypass.filter((perm: string) => !permissionMap[perm]);
       if (!missing.length) return;
     }
 
@@ -277,16 +244,14 @@ export default class DexareCommand {
 
   /** Reloads the command. */
   reload() {
-    if (!this.filePath)
-      throw new Error('Cannot reload a command without a file path defined!');
+    if (!this.filePath) throw new Error('Cannot reload a command without a file path defined!');
     const newCommand = require(this.filePath);
     this.cmdsModule.reregister(newCommand, this);
   }
 
   /** Unloads the command. */
   unload() {
-    if (this.filePath && require.cache[this.filePath])
-      delete require.cache[this.filePath];
+    if (this.filePath && require.cache[this.filePath]) delete require.cache[this.filePath];
     this.cmdsModule.unregister(this);
   }
 
@@ -298,9 +263,7 @@ export default class DexareCommand {
   finalize(response: any, ctx: CommandContext) {
     if (
       typeof response === 'string' ||
-      (response &&
-        response.constructor &&
-        response.constructor.name === 'Object')
+      (response && response.constructor && response.constructor.name === 'Object')
     )
       return ctx.send(response);
   }

@@ -25,9 +25,7 @@ export class PingCommand extends DexareCommand {
     const pingMsg = await ctx.reply('Pinging...');
     return pingMsg.edit(oneLine`
       ${ctx.member ? `${ctx.author.mention},` : ''}
-      Pong! The message took ${(
-        Date.now() - timeBeforeMessage
-      ).toLocaleString()}ms to be created.
+      Pong! The message took ${(Date.now() - timeBeforeMessage).toLocaleString()}ms to be created.
       The heartbeat ping is ${Math.round(currentPing).toLocaleString()}ms.
     `);
   }

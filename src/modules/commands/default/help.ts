@@ -13,8 +13,7 @@ export class HelpCommand extends DexareCommand {
   constructor(client: DexareClient<any>) {
     super(client, {
       name: 'help',
-      description:
-        'Displays a list of available commands, or detailed information for a specified command.',
+      description: 'Displays a list of available commands, or detailed information for a specified command.',
       category: 'General',
       metadata: {
         examples: ['help', 'help ping'],
@@ -31,8 +30,7 @@ export class HelpCommand extends DexareCommand {
   async run(ctx: CommandContext) {
     if (ctx.args.length) {
       const commands = ctx.cmdsModule.find(ctx.args[0], ctx);
-      if (!commands.length)
-        return `I couldn't find any commands with \`${ctx.args[0]}\`!`;
+      if (!commands.length) return `I couldn't find any commands with \`${ctx.args[0]}\`!`;
       else {
         const command = commands[0];
         const embed: Eris.EmbedOptions = {
@@ -70,18 +68,14 @@ export class HelpCommand extends DexareCommand {
           text += `\n**Examples:**\n${command.metadata.examples.join('\n')}`;
           embed.fields!.push({
             name: 'Examples',
-            value: command.metadata.examples
-              .map((a: string) => `${ctx.prefix}${a}`)
-              .join('\n'),
+            value: command.metadata.examples.map((a: string) => `${ctx.prefix}${a}`).join('\n'),
             inline: true
           });
         }
 
         const canSendEmbed =
           'permissionsOf' in ctx.channel
-            ? ctx.channel
-                .permissionsOf(this.client.bot.user.id)
-                .has('embedLinks')
+            ? ctx.channel.permissionsOf(this.client.bot.user.id).has('embedLinks')
             : true;
         return canSendEmbed
           ? { embed }
@@ -140,9 +134,7 @@ export class HelpCommand extends DexareCommand {
       });
 
       embed.fields!.push({
-        name: fieldsPushed
-          ? `${truncate(cat, 200)} (${fieldsPushed + 1})`
-          : truncate(cat, 256),
+        name: fieldsPushed ? `${truncate(cat, 200)} (${fieldsPushed + 1})` : truncate(cat, 256),
         value: cmds.join(', ')
       });
     });
@@ -152,9 +144,9 @@ export class HelpCommand extends DexareCommand {
     chunkedFields.forEach((chunk, i) =>
       embeds.push({
         ...embed,
-        title: `Commands in ${
-          ctx.guild ? truncate(ctx.guild.name, 100) : 'all servers'
-        }${chunkedFields.length == 1 ? '' : ` (${i + 1})`}`,
+        title: `Commands in ${ctx.guild ? truncate(ctx.guild.name, 100) : 'all servers'}${
+          chunkedFields.length == 1 ? '' : ` (${i + 1})`
+        }`,
         fields: chunk
       })
     );
@@ -162,8 +154,7 @@ export class HelpCommand extends DexareCommand {
     if (embeds.length === 1) return { embed: embeds[0] };
     try {
       const dm = await ctx.author.getDMChannel();
-      for (const chunkedEmbed of embeds)
-        await dm.createMessage({ embed: chunkedEmbed });
+      for (const chunkedEmbed of embeds) await dm.createMessage({ embed: chunkedEmbed });
       if (ctx.guild) return 'Sent you a DM with information.';
     } catch (e) {
       return 'Unable to send you the help DM. You probably have DMs disabled.';

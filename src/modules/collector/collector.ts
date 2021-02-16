@@ -54,11 +54,7 @@ export default class Collector extends ((EventEmitter as any) as new () => Typed
 
   readonly id: string;
 
-  constructor(
-    collectorModule: CollectorModule,
-    filter: CollectorFilter,
-    options: CollectorOptions = {}
-  ) {
+  constructor(collectorModule: CollectorModule, filter: CollectorFilter, options: CollectorOptions = {}) {
     // eslint-disable-next-line constructor-super
     super();
     this.module = collectorModule;
@@ -72,10 +68,8 @@ export default class Collector extends ((EventEmitter as any) as new () => Typed
     this.handleCollect = this.handleCollect.bind(this);
     this.handleDispose = this.handleDispose.bind(this);
 
-    if (options.time)
-      this._timeout = setTimeout(() => this.stop('time'), options.time);
-    if (options.idle)
-      this._idletimeout = setTimeout(() => this.stop('idle'), options.idle);
+    if (options.time) this._timeout = setTimeout(() => this.stop('time'), options.time);
+    if (options.idle) this._idletimeout = setTimeout(() => this.stop('idle'), options.idle);
 
     this.module.activeCollectors.set(this.id, this);
   }
@@ -85,12 +79,7 @@ export default class Collector extends ((EventEmitter as any) as new () => Typed
     handler: EventHandlers[E],
     options?: { before?: string[]; after?: string[] }
   ) {
-    return this.client.events.register(
-      'collector:' + this.id,
-      event,
-      handler,
-      options
-    );
+    return this.client.events.register('collector:' + this.id, event, handler, options);
   }
 
   /**
@@ -106,10 +95,7 @@ export default class Collector extends ((EventEmitter as any) as new () => Typed
 
       if (this._idletimeout) {
         clearTimeout(this._idletimeout);
-        this._idletimeout = setTimeout(
-          () => this.stop('idle'),
-          this.options.idle!
-        );
+        this._idletimeout = setTimeout(() => this.stop('idle'), this.options.idle!);
       }
     }
     this.checkEnd();
@@ -124,8 +110,7 @@ export default class Collector extends ((EventEmitter as any) as new () => Typed
 
     const dispose = this.dispose(...args);
     // deepscan-disable-next-line CONSTANT_CONDITION
-    if (!dispose || !this.filter(...args) || !this.collected.has(dispose))
-      return;
+    if (!dispose || !this.filter(...args) || !this.collected.has(dispose)) return;
     this.collected.delete(dispose);
 
     this.emit('dispose', ...args);
@@ -194,10 +179,7 @@ export default class Collector extends ((EventEmitter as any) as new () => Typed
   resetTimer(options: ResetTimerOptions = {}) {
     if (this._timeout) {
       clearTimeout(this._timeout);
-      this._timeout = setTimeout(
-        () => this.stop('time'),
-        (options && options.time) || this.options.time!
-      );
+      this._timeout = setTimeout(() => this.stop('time'), (options && options.time) || this.options.time!);
     }
     if (this._idletimeout) {
       clearTimeout(this._idletimeout);

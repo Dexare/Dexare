@@ -22,9 +22,7 @@ export const DirectMessagePermissions = [
 ];
 
 export const CorePermissions = [
-  ...Object.keys(Eris.Constants.Permissions).map(
-    (permission) => 'discord.' + permission.toLowerCase()
-  ),
+  ...Object.keys(Eris.Constants.Permissions).map((permission) => 'discord.' + permission.toLowerCase()),
   'dexare.elevated'
 ];
 
@@ -44,8 +42,7 @@ export default class PermissionRegistry<T extends DexareClient<any>> {
           if ('guild' in object.channel && object.member)
             return object.channel.permissionsOf(object.member).has(permission);
           else return DirectMessagePermissions.includes(permission);
-        else if (object instanceof Eris.Member)
-          return object.guild.permissionsOf(object).has(permission);
+        else if (object instanceof Eris.Member) return object.guild.permissionsOf(object).has(permission);
         return DirectMessagePermissions.includes(permission);
       });
     }
@@ -58,8 +55,7 @@ export default class PermissionRegistry<T extends DexareClient<any>> {
       else if (object instanceof Eris.Member) user = object.user;
       else user = object;
 
-      if (Array.isArray(client.config.elevated))
-        return client.config.elevated.includes(user.id);
+      if (Array.isArray(client.config.elevated)) return client.config.elevated.includes(user.id);
       return client.config.elevated === user.id;
     });
 
@@ -83,8 +79,7 @@ export default class PermissionRegistry<T extends DexareClient<any>> {
    */
   register(key: string, permission: PermissionFunction<T>): void {
     key = key.toLowerCase();
-    if (CorePermissions.includes(key))
-      throw new Error(`Cannot register to core permissions. (${key})`);
+    if (CorePermissions.includes(key)) throw new Error(`Cannot register to core permissions. (${key})`);
     this.logger.log(`Registering permission '${key}'`);
 
     this.permissions.set(key, permission);
@@ -96,8 +91,7 @@ export default class PermissionRegistry<T extends DexareClient<any>> {
    */
   unregister(key: string): boolean {
     key = key.toLowerCase();
-    if (CorePermissions.includes(key))
-      throw new Error(`Cannot unregister core permissions. (${key})`);
+    if (CorePermissions.includes(key)) throw new Error(`Cannot unregister core permissions. (${key})`);
     this.logger.log(`Unregistering permission '${key}'`);
 
     return this.permissions.delete(key);
@@ -109,11 +103,7 @@ export default class PermissionRegistry<T extends DexareClient<any>> {
    * @param permission The permission to check
    * @param event The client event to associate the function
    */
-  has(
-    object: Eris.Message | Eris.User | Eris.Member,
-    permission: string,
-    event?: ClientEvent
-  ) {
+  has(object: Eris.Message | Eris.User | Eris.Member, permission: string, event?: ClientEvent) {
     permission = permission.toLowerCase();
     if (!permission || !this.permissions.has(permission)) return false;
     return this.permissions.get(permission)!(object, this.client, event);

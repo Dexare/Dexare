@@ -16,9 +16,7 @@ import ArgumentInterpreter from './interpreter';
 export type DefaultCommand = 'eval' | 'help' | 'ping';
 
 /** The commands module in Dexare. */
-export default class CommandsModule<
-  T extends DexareClient<any>
-> extends DexareModule<T> {
+export default class CommandsModule<T extends DexareClient<any>> extends DexareModule<T> {
   /** The commands loaded into the module. */
   readonly commands = new Collection<string, DexareCommand>();
 
@@ -44,31 +42,18 @@ export default class CommandsModule<
    */
   register(command: any) {
     if (typeof command === 'function') command = new command(this.client);
-    else if (typeof command.default === 'function')
-      command = new command.default(this.client);
+    else if (typeof command.default === 'function') command = new command.default(this.client);
 
     if (!(command instanceof DexareCommand))
       throw new Error(`Invalid command object to register: ${command}`);
 
     // Make sure there aren't any conflicts
-    if (
-      this.commands.some(
-        (cmd) => cmd.name === command.name || cmd.aliases.includes(command.name)
-      )
-    ) {
-      throw new Error(
-        `A command with the name/alias "${command.name}" is already registered.`
-      );
+    if (this.commands.some((cmd) => cmd.name === command.name || cmd.aliases.includes(command.name))) {
+      throw new Error(`A command with the name/alias "${command.name}" is already registered.`);
     }
     for (const alias of command.aliases) {
-      if (
-        this.commands.some(
-          (cmd) => cmd.name === alias || cmd.aliases.includes(alias)
-        )
-      ) {
-        throw new Error(
-          `A command with the name/alias "${alias}" is already registered.`
-        );
+      if (this.commands.some((cmd) => cmd.name === alias || cmd.aliases.includes(alias))) {
+        throw new Error(`A command with the name/alias "${alias}" is already registered.`);
       }
     }
 
@@ -83,9 +68,7 @@ export default class CommandsModule<
    * @param path The path to register from.
    */
   registerFromFolder(path: string) {
-    return iterateFolder(path, async (file) =>
-      this.register(require(join(process.cwd(), file)))
-    );
+    return iterateFolder(path, async (file) => this.register(require(join(process.cwd(), file))));
   }
 
   /**
@@ -95,14 +78,12 @@ export default class CommandsModule<
    */
   reregister(command: any, oldCommand: DexareCommand) {
     if (typeof command === 'function') command = new command(this.client);
-    else if (typeof command.default === 'function')
-      command = new command.default(this.client);
+    else if (typeof command.default === 'function') command = new command.default(this.client);
 
     if (!(command instanceof DexareCommand))
       throw new Error(`Invalid command object to register: ${command}`);
 
-    if (command.name !== oldCommand.name)
-      throw new Error('Command name cannot change.');
+    if (command.name !== oldCommand.name) throw new Error('Command name cannot change.');
 
     command.preload();
     this.commands.set(command.name, command);
@@ -133,8 +114,7 @@ export default class CommandsModule<
       this.commands
         .filter(
           (cmd) =>
-            cmd.name === searchString ||
-            (cmd.aliases && cmd.aliases.some((ali) => ali === searchString))
+            cmd.name === searchString || (cmd.aliases && cmd.aliases.some((ali) => ali === searchString))
         )
         .values()
     );
@@ -177,29 +157,18 @@ export default class CommandsModule<
       else prefixes.push(configPrefixes);
     }
 
-    if (
-      (this.client.config.mentionPrefix && !event.has('skipConfigPrefix')) ||
-      event.has('mentionPrefix')
-    )
+    if ((this.client.config.mentionPrefix && !event.has('skipConfigPrefix')) || event.has('mentionPrefix'))
       useMentionPrefix = true;
 
-    if (
-      this.client.config.caseSensitivePrefix ||
-      event.has('caseSensitivePrefix')
-    )
-      caseSensitive = true;
+    if (this.client.config.caseSensitivePrefix || event.has('caseSensitivePrefix')) caseSensitive = true;
 
     if (!prefixes.length && !useMentionPrefix) return;
 
     const escapedPrefixes = prefixes.map(this._escapeRegExp);
 
-    if (useMentionPrefix)
-      escapedPrefixes.push(`<@!?${this.client.bot.user.id}>`);
+    if (useMentionPrefix) escapedPrefixes.push(`<@!?${this.client.bot.user.id}>`);
 
-    return new RegExp(
-      `^(?<prefix>${escapedPrefixes.join('|')}) ?`,
-      caseSensitive ? '' : 'i'
-    );
+    return new RegExp(`^(?<prefix>${escapedPrefixes.join('|')}) ?`, caseSensitive ? '' : 'i');
   }
 
   /** @hidden */
@@ -266,9 +235,7 @@ export default class CommandsModule<
     // Ensure the client user has the required permissions
     if ('permissionsOf' in message.channel && command.clientPermissions) {
       const perms = message.channel.permissionsOf(this.client.bot.user.id).json;
-      const missing = command.clientPermissions.filter(
-        (perm: string) => !perms[perm]
-      );
+      const missing = command.clientPermissions.filter((perm: string) => !perms[perm]);
       if (missing.length > 0) {
         const data = { missing };
         await command.onBlock(ctx, 'clientPermissions', data);
@@ -278,14 +245,8 @@ export default class CommandsModule<
 
     // Throttle the command
     const throttle = await command.throttle(ctx.author);
-    if (
-      throttle &&
-      command.throttling &&
-      throttle.usages + 1 > command.throttling.usages
-    ) {
-      const remaining =
-        (throttle.start + command.throttling.duration * 1000 - Date.now()) /
-        1000;
+    if (throttle && command.throttling && throttle.usages + 1 > command.throttling.usages) {
+      const remaining = (throttle.start + command.throttling.duration * 1000 - Date.now()) / 1000;
       const data = { throttle, remaining };
       command.onBlock(ctx, 'throttling', data);
       return;

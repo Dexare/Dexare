@@ -47,10 +47,7 @@ export class EvalCommand extends DexareCommand {
     const callback = (val: any) => {
       if (val instanceof Error) ctx.reply(`Callback error: \`${val}\``);
       else {
-        const result = this.makeResultMessages(
-          val,
-          process.hrtime(this.hrStart)
-        );
+        const result = this.makeResultMessages(val, process.hrtime(this.hrStart));
         ctx.reply(result);
       }
     };
@@ -76,9 +73,7 @@ export class EvalCommand extends DexareCommand {
       .replace(this.sensitivePattern, '--snip--');
     if (input) {
       return (
-        `*Executed in ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ''}${
-          hrDiff[1] / 1000000
-        }ms.*\n\`\`\`js\n` +
+        `*Executed in ${hrDiff[0] > 0 ? `${hrDiff[0]}s ` : ''}${hrDiff[1] / 1000000}ms.*\n\`\`\`js\n` +
         inspected.slice(0, 1900) +
         `\`\`\``
       );

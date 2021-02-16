@@ -3,10 +3,7 @@ import Eris from 'eris';
 import DexareClient from '../../client';
 import DexareModule from '../../module';
 import Collector from './collector';
-import MessageCollector, {
-  MessageCollectorFilter,
-  MessageCollectorOptions
-} from './message';
+import MessageCollector, { MessageCollectorFilter, MessageCollectorOptions } from './message';
 
 /** The options for {@link CollectorModule#awaitMessages}. */
 export interface AwaitMessagesOptions extends MessageCollectorOptions {
@@ -15,9 +12,7 @@ export interface AwaitMessagesOptions extends MessageCollectorOptions {
 }
 
 /** The Dexare module for collecting objects. */
-export default class CollectorModule<
-  T extends DexareClient = DexareClient
-> extends DexareModule<T> {
+export default class CollectorModule<T extends DexareClient = DexareClient> extends DexareModule<T> {
   readonly activeCollectors = new Collection<string, Collector>();
 
   constructor(client: T) {

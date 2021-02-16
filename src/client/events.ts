@@ -101,9 +101,7 @@ export default class EventRegistry<T extends DexareClient<any>> {
     options?: { before?: string[]; after?: string[] }
   ) {
     this.logger.log(`Registering event '${event}' for group '${groupName}'`);
-    const eventGroup = this.eventGroups.has(groupName)
-      ? this.eventGroups.get(groupName)!
-      : {};
+    const eventGroup = this.eventGroups.has(groupName) ? this.eventGroups.get(groupName)! : {};
     eventGroup[event] = {
       group: groupName,
       before: (options && options.before) || [],
@@ -146,10 +144,7 @@ export default class EventRegistry<T extends DexareClient<any>> {
    * @param event The event to emit
    * @param args The arcuments to emit with
    */
-  emit<E extends keyof DexareEvents>(
-    event: E,
-    ...args: Arguments<DexareEvents[E]>
-  ) {
+  emit<E extends keyof DexareEvents>(event: E, ...args: Arguments<DexareEvents[E]>) {
     if (!this.loadOrders.has(event)) this.refreshLoadOrder(event);
     const loadOrder = this.loadOrders.get(event)!;
     const clientEvent = new ClientEvent(event);
@@ -159,9 +154,7 @@ export default class EventRegistry<T extends DexareClient<any>> {
       for (const groupName of loadOrder) {
         if (clientEvent.skipped.includes(groupName)) continue;
         try {
-          await this.eventGroups
-            .get(groupName)!
-            [event]!.listener(clientEvent, ...args);
+          await this.eventGroups.get(groupName)![event]!.listener(clientEvent, ...args);
         } catch (e) {}
       }
     })();
@@ -172,10 +165,7 @@ export default class EventRegistry<T extends DexareClient<any>> {
    * @param event The event to emit
    * @param args The arcuments to emit with
    */
-  async emitAsync<E extends keyof DexareEvents>(
-    event: E,
-    ...args: Arguments<DexareEvents[E]>
-  ) {
+  async emitAsync<E extends keyof DexareEvents>(event: E, ...args: Arguments<DexareEvents[E]>) {
     if (!this.loadOrders.has(event)) this.refreshLoadOrder(event);
     const loadOrder = this.loadOrders.get(event)!;
     const clientEvent = new ClientEvent(event);
@@ -183,9 +173,7 @@ export default class EventRegistry<T extends DexareClient<any>> {
     for (const groupName of loadOrder) {
       if (clientEvent.skipped.includes(groupName)) continue;
       try {
-        await this.eventGroups
-          .get(groupName)!
-          [event]!.listener(clientEvent, ...args);
+        await this.eventGroups.get(groupName)![event]!.listener(clientEvent, ...args);
       } catch (e) {}
     }
   }
@@ -203,8 +191,7 @@ export default class EventRegistry<T extends DexareClient<any>> {
   private refreshAllLoadOrders() {
     const events = uniq(
       this.eventGroups.reduce(
-        (prev, group) =>
-          (Object.keys(group) as (keyof DexareEvents)[]).concat(prev),
+        (prev, group) => (Object.keys(group) as (keyof DexareEvents)[]).concat(prev),
         [] as (keyof DexareEvents)[]
       )
     );
@@ -234,14 +221,10 @@ export default class EventRegistry<T extends DexareClient<any>> {
     }
 
     // handle "afters" first
-    handlers
-      .filter((group) => group.after.length)
-      .forEach((handler) => insert(handler));
+    handlers.filter((group) => group.after.length).forEach((handler) => insert(handler));
 
     // handle "befores" second
-    handlers
-      .filter((group) => group.before.length)
-      .forEach((handler) => insert(handler));
+    handlers.filter((group) => group.before.length).forEach((handler) => insert(handler));
 
     // handle others last
     handlers

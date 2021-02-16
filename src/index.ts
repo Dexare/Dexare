@@ -28,21 +28,10 @@ export {
 
 export { DexareEvents, BaseConfig } from './client';
 export { EventHandlers, EventGroup, ClientEvent } from './client/events';
-export {
-  PermissionFunction,
-  DirectMessagePermissions,
-  CorePermissions
-} from './client/permissions';
-export {
-  CollectorOptions,
-  CollectorFilter,
-  ResetTimerOptions
-} from './modules/collector/collector';
+export { PermissionFunction, DirectMessagePermissions, CorePermissions } from './client/permissions';
+export { CollectorOptions, CollectorFilter, ResetTimerOptions } from './modules/collector/collector';
 export { AwaitMessagesOptions } from './modules/collector';
-export {
-  MessageCollectorOptions,
-  MessageCollectorFilter
-} from './modules/collector/message';
+export { MessageCollectorOptions, MessageCollectorFilter } from './modules/collector/message';
 export { CommandOptions, ThrottlingOptions } from './modules/commands/command';
 export { StringIterator } from './modules/commands/interpreter';
 export { iterateFolder } from './util';

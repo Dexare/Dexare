@@ -24,8 +24,7 @@ export async function iterateFolder(
         } else if (stat.isDirectory()) {
           return iterateFolder(realPath, callback);
         }
-      } else if (stat.isFile() && file.endsWith(extension))
-        return callback(filePath);
+      } else if (stat.isFile() && file.endsWith(extension)) return callback(filePath);
       else if (stat.isDirectory()) return iterateFolder(filePath, callback);
     })
   );
