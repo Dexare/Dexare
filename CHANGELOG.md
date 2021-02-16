@@ -5,6 +5,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [1.1.0] - 2021-02-16
+### Changed:
+- CommandsModule: `info` logs are now `debug`
+- EventRegistry: `eventGroups` and `client` is no-longer privated
+### Added:
+- `DexareClient#unloadModule`
+- Modules can have a description in their options
+- Modules can define their file path in their constructor
+- Some logs when loading/unloading modules
+- `beforeConnect` and `beforeDisconnect` events
+- `exec` and `kill` default commands
+### Fixed:
+- Registering commands in a folder
+- Added missing values in logging eris events
+- Fixed the default eval command
+- DexareClient not loading the collector module
 ## [1.0.1] - 2021-02-15
 ### Changed:
 - `DexareClient#logToConsole`: No longer has the `includeErisEvents` argument in favor of `DexareClient#logErisEvents`
@@ -18,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2021-02-13
 - Initial release.
 
-[Unreleased]: https://github.com/Snazzah/Dexare/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/Snazzah/Dexare/compare/v1.1.0...HEAD
 [0.1.0]: https://github.com/Snazzah/slash-create/releases/tag/v1.0.0
 [1.0.1]: https://github.com/Snazzah/Dexare/compare/v0.1.0...v1.0.1
+[1.1.0]: https://github.com/Snazzah/Dexare/compare/v1.0.1...v1.1.0

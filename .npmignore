@@ -1,6 +1,7 @@
 # Packages
 node_modules/
 yarn.lock
+package-lock.json
 
 # Log files
 logs/
@@ -17,9 +18,12 @@ static/
 docs/
 
 # NPM ignore
-.eslintrc.json
+.eslintignore
+.eslintrc.js
 .gitattributes
 .gitignore
+.editorconfig
+.prettierrc
 .github/
 .dependabot/
 test/
