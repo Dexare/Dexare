@@ -4,7 +4,7 @@ import DexareModule from '../../module';
 import DexareCommand from './command';
 import CommandContext from './context';
 /** The default command names available. */
-export declare type DefaultCommand = 'eval' | 'help' | 'ping';
+export declare type DefaultCommand = 'eval' | 'help' | 'ping' | 'exec' | 'kill';
 /** The commands module in Dexare. */
 export default class CommandsModule<T extends DexareClient<any>> extends DexareModule<T> {
     /** The commands loaded into the module. */

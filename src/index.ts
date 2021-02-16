@@ -9,6 +9,7 @@ import DexareCommand from './modules/commands/command';
 import CommandContext from './modules/commands/context';
 import ArgumentInterpreter from './modules/commands/interpreter';
 import DexareModule from './module';
+import * as Util from './util';
 import LoggerHandler from './util/logger';
 
 export {
@@ -23,7 +24,8 @@ export {
   CommandContext,
   ArgumentInterpreter,
   DexareModule,
-  LoggerHandler
+  LoggerHandler,
+  Util
 };
 
 export { DexareEvents, BaseConfig } from './client';
@@ -32,9 +34,9 @@ export { PermissionFunction, DirectMessagePermissions, CorePermissions } from '.
 export { CollectorOptions, CollectorFilter, ResetTimerOptions } from './modules/collector/collector';
 export { AwaitMessagesOptions } from './modules/collector';
 export { MessageCollectorOptions, MessageCollectorFilter } from './modules/collector/message';
+export { DefaultCommand } from './modules/commands';
 export { CommandOptions, ThrottlingOptions } from './modules/commands/command';
 export { StringIterator } from './modules/commands/interpreter';
-export { iterateFolder } from './util';
 export { ErisEventNames, PermissionNames } from './constants';
 export { ModuleOptions } from './module';
 export { ErisEvents, LoggerExtra } from './types';

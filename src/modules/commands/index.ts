@@ -7,13 +7,16 @@ import DexareModule from '../../module';
 import { iterateFolder } from '../../util';
 import DexareCommand from './command';
 import CommandContext from './context';
+import ArgumentInterpreter from './interpreter';
+
 import EvalCommand from './default/eval';
 import HelpCommand from './default/help';
 import PingCommand from './default/ping';
-import ArgumentInterpreter from './interpreter';
+import ExecCommand from './default/exec';
+import KillCommand from './default/kill';
 
 /** The default command names available. */
-export type DefaultCommand = 'eval' | 'help' | 'ping';
+export type DefaultCommand = 'eval' | 'help' | 'ping' | 'exec' | 'kill';
 
 /** The commands module in Dexare. */
 export default class CommandsModule<T extends DexareClient<any>> extends DexareModule<T> {
@@ -135,6 +138,8 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
     if (commands.includes('eval')) this.register(EvalCommand);
     if (commands.includes('help')) this.register(HelpCommand);
     if (commands.includes('ping')) this.register(PingCommand);
+    if (commands.includes('exec')) this.register(ExecCommand);
+    if (commands.includes('kill')) this.register(KillCommand);
   }
 
   /** @hidden */
