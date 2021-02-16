@@ -39,14 +39,18 @@ export declare class ClientEvent {
     skip(group: string): void;
     /**
      * Whether a data key exists within the data.
+     * @param key The key to check
      */
     has(key: string): boolean;
     /**
      * Gets a key within the event's data.
+     * @param key The key to get
      */
     get(key: string): any;
     /**
      * Sets a key within the event's data.
+     * @param key The key to set
+     * @param value The data
      */
     set(key: string, data: any): Map<string, any>;
 }

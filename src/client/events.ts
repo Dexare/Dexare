@@ -54,6 +54,7 @@ export class ClientEvent {
 
   /**
    * Whether a data key exists within the data.
+   * @param key The key to check
    */
   has(key: string) {
     return this.data.has(key);
@@ -61,6 +62,7 @@ export class ClientEvent {
 
   /**
    * Gets a key within the event's data.
+   * @param key The key to get
    */
   get(key: string) {
     return this.data.get(key);
@@ -68,6 +70,8 @@ export class ClientEvent {
 
   /**
    * Sets a key within the event's data.
+   * @param key The key to set
+   * @param value The data
    */
   set(key: string, data: any) {
     return this.data.set(key, data);
