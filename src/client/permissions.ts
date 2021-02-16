@@ -23,7 +23,9 @@ export const DirectMessagePermissions = [
 
 export const CorePermissions = [
   ...Object.keys(Eris.Constants.Permissions).map((permission) => 'discord.' + permission.toLowerCase()),
-  'dexare.elevated'
+  'dexare.elevated',
+  'dexare.inguild',
+  'dexare.nsfwchannel'
 ];
 
 /** The registry for permissions in Dexare. */
