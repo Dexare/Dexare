@@ -86,5 +86,6 @@ interface LoggerExtraBase {
 export interface LoggerExtra extends LoggerExtraBase {
     command?: DexareCommand;
     id?: number;
+    trace?: string[];
 }
 export {};

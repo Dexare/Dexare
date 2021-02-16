@@ -139,11 +139,14 @@ export default class DexareClient<
       this.emit('logger', 'error', 'eris', [error], { id })
     );
 
-    this.on('connect', () =>
-      this.emit('logger', 'info', 'eris', ['Shard connected.'])
+    this.on('connect', (id) =>
+      this.emit('logger', 'info', 'eris', ['Shard connected.'], { id })
     );
-    this.on('hello', () =>
-      this.emit('logger', 'debug', 'eris', ['Shard recieved hello.'])
+    this.on('hello', (trace, id) =>
+      this.emit('logger', 'debug', 'eris', ['Shard recieved hello.'], {
+        id,
+        trace
+      })
     );
 
     this.on('shardReady', (id) =>
