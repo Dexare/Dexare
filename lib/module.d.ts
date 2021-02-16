@@ -3,8 +3,12 @@ import { EventHandlers } from './client/events';
 import LoggerHandler from './util/logger';
 /** Options for the {@link DexareModule}. */
 export interface ModuleOptions {
+    /** The name of the module. */
     name: string;
+    /** The requirements/dependencies of the module. */
     requires?: string[];
+    /** The description of the module. */
+    description?: string;
 }
 /** A module for Dexare. */
 export default class DexareModule<T extends DexareClient<any>> {
@@ -25,6 +29,11 @@ export default class DexareModule<T extends DexareClient<any>> {
     readonly client: T;
     /** Whether the module has been loaded. */
     loaded: boolean;
+    /**
+     * The file path of the module.
+     * Set this to `__filename` in the constructor.
+     */
+    filePath?: string;
     constructor(client: T, options: ModuleOptions);
     /** @hidden */
     _load(): void;

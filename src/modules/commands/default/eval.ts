@@ -29,6 +29,7 @@ export default class EvalCommand extends DexareCommand {
       value: null,
       configurable: true
     });
+
     this.filePath = __filename;
   }
 

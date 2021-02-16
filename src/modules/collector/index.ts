@@ -17,8 +17,11 @@ export default class CollectorModule<T extends DexareClient<any>> extends Dexare
 
   constructor(client: T) {
     super(client, {
-      name: 'collector'
+      name: 'collector',
+      description: "Dexare's collection handler, for asynchronous object collection."
     });
+
+    this.filePath = __filename;
   }
 
   /**

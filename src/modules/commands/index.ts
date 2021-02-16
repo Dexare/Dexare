@@ -22,8 +22,11 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
 
   constructor(client: T) {
     super(client, {
-      name: 'commands'
+      name: 'commands',
+      description: "Dexare's command handler."
     });
+
+    this.filePath = __filename;
   }
 
   /** @hidden */
