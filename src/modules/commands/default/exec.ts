@@ -11,7 +11,8 @@ export default class ExecCommand extends DexareCommand {
       category: 'Developer',
       userPermissions: ['dexare.elevated'],
       metadata: {
-        examples: ['exec echo hi']
+        examples: ['exec echo hi'],
+        usage: '<command>'
       }
     });
 

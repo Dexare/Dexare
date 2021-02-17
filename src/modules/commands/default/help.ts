@@ -14,6 +14,7 @@ export default class HelpCommand extends DexareCommand {
       category: 'General',
       metadata: {
         examples: ['help', 'help ping'],
+        usage: '[command]',
         details: oneLine`
           The command may be part of a command name or a whole command name.
           If it isn't specified, all available commands will be listed.
@@ -57,6 +58,15 @@ export default class HelpCommand extends DexareCommand {
           embed.fields!.push({
             name: 'Details',
             value: command.metadata.details
+          });
+        }
+
+        // Usage
+        if (command.metadata?.usage) {
+          text += `\n**Usage:** ${command.metadata.usage}`;
+          embed.fields!.push({
+            name: 'Usage',
+            value: command.metadata.usage
           });
         }
 

@@ -20,6 +20,7 @@ export default class EvalCommand extends DexareCommand {
       userPermissions: ['dexare.elevated'],
       metadata: {
         examples: ['eval 1+1', 'eval someAsyncFunction.then(callback)'],
+        usage: '<code>',
         details:
           'Only the bot owner(s) may use this command. Can use `message`, `client`, `lastResult`, `event` and `callback` in evaluation.'
       }
