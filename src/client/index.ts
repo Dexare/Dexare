@@ -64,6 +64,7 @@ export default class DexareClient<
   /**
    * Load modules into the client.
    * @param moduleObjects The modules to load.
+   * @returns The client for chaining purposes
    */
   loadModules(...moduleObjects: any[]) {
     const modules = moduleObjects.map(this._resolveModule.bind(this));
@@ -71,12 +72,27 @@ export default class DexareClient<
 
     for (const modName of loadOrder) {
       const mod = modules.find((mod) => mod.options.name === modName)!;
+      if (this.modules.has(mod.options.name))
+        throw new Error(`A module in the client already has been named "${mod.options.name}".`);
       this._log('debug', `Loading module "${modName}"`);
       this.modules.set(modName, mod);
       mod._load();
     }
 
     return this;
+  }
+
+  /**
+   * Loads a module asynchronously into the client.
+   * @param moduleObject The module to load
+   */
+  async loadModule(moduleObject: any) {
+    const mod = this._resolveModule(moduleObject);
+    if (this.modules.has(mod.options.name))
+      throw new Error(`A module in the client already has been named "${mod.options.name}".`);
+    this._log('debug', `Loading module "${mod.options.name}"`);
+    this.modules.set(mod.options.name, mod);
+    await mod._load();
   }
 
   /**

@@ -36,7 +36,7 @@ export default class DexareModule<T extends DexareClient<any>> {
     filePath?: string;
     constructor(client: T, options: ModuleOptions);
     /** @hidden */
-    _load(): void;
+    _load(): Promise<void>;
     /** Fired when this module is loaded. */
     load(): void;
     /** Fired when this module is being unloaded. */

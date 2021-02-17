@@ -43,8 +43,14 @@ export default class DexareClient<T extends BaseConfig = BaseConfig> extends Dex
     /**
      * Load modules into the client.
      * @param moduleObjects The modules to load.
+     * @returns The client for chaining purposes
      */
     loadModules(...moduleObjects: any[]): this;
+    /**
+     * Loads a module asynchronously into the client.
+     * @param moduleObject The module to load
+     */
+    loadModule(moduleObject: any): Promise<void>;
     /**
      * Unloads a module.
      * @param moduleName The module to unload

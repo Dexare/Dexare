@@ -40,13 +40,13 @@ export default class DexareModule<T extends DexareClient<any>> {
   }
 
   /** @hidden */
-  _load() {
+  async _load() {
     this.loaded = true;
     this.registerQueue.forEach(([{ event, before, after }, handler]) =>
       this.registerEvent(event, handler, { before, after })
     );
     this.registerQueue.length = 0;
-    this.load();
+    await this.load();
   }
 
   /** Fired when this module is loaded. */
