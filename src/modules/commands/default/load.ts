@@ -36,7 +36,7 @@ export default class LoadCommand extends DexareCommand {
     }
 
     try {
-      this.client.loadModules(...mods);
+      await this.client.loadModulesAsync(...mods);
       return `Loaded ${ctx.args.length.toLocaleString()} module(s).`;
     } catch (e) {
       return `Error loading modules: \`${e.toString()}\``;
