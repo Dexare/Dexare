@@ -14,9 +14,12 @@ import HelpCommand from './default/help';
 import PingCommand from './default/ping';
 import ExecCommand from './default/exec';
 import KillCommand from './default/kill';
+import LoadCommand from './default/load';
+import UnloadCommand from './default/unload';
+import ReloadCommand from './default/reload';
 
 /** The default command names available. */
-export type DefaultCommand = 'eval' | 'help' | 'ping' | 'exec' | 'kill';
+export type DefaultCommand = 'eval' | 'help' | 'ping' | 'exec' | 'kill' | 'load' | 'unload' | 'reload';
 
 /** The commands module in Dexare. */
 export default class CommandsModule<T extends DexareClient<any>> extends DexareModule<T> {
@@ -133,13 +136,16 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
    * @param commands The commands to register, if not defined, all commands are used.
    */
   registerDefaults(commands?: DefaultCommand[]) {
-    if (!commands) commands = ['eval', 'help', 'ping'];
+    if (!commands) commands = ['eval', 'help', 'ping', 'exec', 'kill', 'load', 'unload', 'reload'];
 
     if (commands.includes('eval')) this.register(EvalCommand);
     if (commands.includes('help')) this.register(HelpCommand);
     if (commands.includes('ping')) this.register(PingCommand);
     if (commands.includes('exec')) this.register(ExecCommand);
     if (commands.includes('kill')) this.register(KillCommand);
+    if (commands.includes('load')) this.register(LoadCommand);
+    if (commands.includes('unload')) this.register(UnloadCommand);
+    if (commands.includes('reload')) this.register(ReloadCommand);
   }
 
   /** @hidden */
