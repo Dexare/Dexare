@@ -273,7 +273,7 @@ export default class DexareClient<
             throw new Error(
               `Module '${mod.options.name}' requires dependency '${modName}' which does not exist!`
             );
-          insert(dep);
+          if (!this.modules.has(modName)) insert(dep);
         });
       if (!loadOrder.includes(mod.options.name)) loadOrder.push(mod.options.name);
     };
