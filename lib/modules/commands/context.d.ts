@@ -37,4 +37,9 @@ export default class CommandContext {
      * Only prepends in guild channels.
      */
     reply(content: Eris.MessageContent, file?: Eris.MessageFile | Eris.MessageFile[]): Promise<Eris.Message<Eris.TextableChannel>>;
+    /**
+     * Sends a message with the author's mention prepended to it.
+     * Only prepends in guild channels.
+     */
+    replyMention(content: Eris.MessageContent, file?: Eris.MessageFile | Eris.MessageFile[]): Promise<Eris.Message<Eris.TextableChannel>>;
 }

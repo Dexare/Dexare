@@ -61,18 +61,24 @@ export default class CommandContext {
    */
   reply(content: Eris.MessageContent, file?: Eris.MessageFile | Eris.MessageFile[]) {
     if (typeof content === 'string') content = { content };
+    // @ts-ignore
+    content.message_reference = { message_id: this.message.id };
+    // content.messageReferenceID = this.message.id;
     if (content.content && this.guild) content.content = `${this.message.author.mention}, ${content.content}`;
     return this.message.channel.createMessage(content, file);
   }
 
   /**
-
-  // For Eris' next release
-  reply(content: Eris.MessageContent, file?: Eris.MessageFile | Eris.MessageFile[]) {
+   * Sends a message with the author's mention prepended to it.
+   * Only prepends in guild channels.
+   */
+  replyMention(content: Eris.MessageContent, file?: Eris.MessageFile | Eris.MessageFile[]) {
     if (typeof content === 'string') content = { content };
-    content.messageReferenceID = this.message.id;
+    if (content.content && this.guild) content.content = `${this.message.author.mention}, ${content.content}`;
     return this.message.channel.createMessage(content, file);
   }
+
+  /**
 
   // This won't work properly without guildMembers intent,
   // wait till next Eris patch
