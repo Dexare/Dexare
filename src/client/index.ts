@@ -246,10 +246,10 @@ export default class DexareClient<
   private _getLoadOrder(modules: DexareModule<any>[]) {
     const loadOrder: string[] = [];
 
-    function insert(mod: DexareModule<any>) {
+    const insert = (mod: DexareModule<any>) => {
       if (mod.options.requires && mod.options.requires.length)
         mod.options.requires.forEach((modName) => {
-          const dep = modules.find((mod) => mod.options.name === modName);
+          const dep = modules.find((mod) => mod.options.name === modName) || this.modules.get(modName);
           if (!dep)
             throw new Error(
               `Module '${mod.options.name}' requires dependency '${modName}' which does not exist!`
@@ -257,7 +257,7 @@ export default class DexareClient<
           insert(dep);
         });
       if (!loadOrder.includes(mod.options.name)) loadOrder.push(mod.options.name);
-    }
+    };
 
     modules.forEach((mod) => insert(mod));
 
