@@ -46,7 +46,7 @@ export default class HelpCommand extends DexareCommand {
 
         // Aliases
         if (command.aliases.length !== 0) {
-          text += `\n**Aliases:** ${command.metadata.aliases.join(', ')}`;
+          text += `\n**Aliases:** ${command.aliases.join(', ')}`;
           embed.fields!.push({
             name: 'Aliases',
             value: command.aliases.map((a) => `\`${a}\``).join(', '),
