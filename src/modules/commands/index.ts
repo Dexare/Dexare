@@ -182,7 +182,7 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
 
     if (useMentionPrefix) escapedPrefixes.push(`<@!?${this.client.bot.user.id}>`);
 
-    return new RegExp(`^(?<prefix>${escapedPrefixes.join('|')}) ?`, caseSensitive ? '' : 'i');
+    return new RegExp(`^(?<prefix>${escapedPrefixes.join('|')})(?<space> )?`, caseSensitive ? '' : 'i');
   }
 
   /** @hidden */
@@ -215,6 +215,8 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
     event.set('commands/invoked', !commandName || !command);
     if (!commandName || !command) return;
 
+    event.set('commands/prefixMatch', match);
+    event.set('commands/spacedPrefix', !!match.groups?.space);
     event.set('commands/strippedContent', strippedContent);
     event.set('commands/commandName', commandName);
     event.set('commands/command', command);

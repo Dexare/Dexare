@@ -26,13 +26,15 @@ export default class HelpCommand extends DexareCommand {
   }
 
   async run(ctx: CommandContext) {
+    const prefix = ctx.prefix + (ctx.event.get('commands/spacedPrefix') ? ' ' : '');
+
     if (ctx.args.length) {
       const commands = ctx.cmdsModule.find(ctx.args[0], ctx);
       if (!commands.length) return `I couldn't find any commands with \`${ctx.args[0]}\`!`;
       else {
         const command = commands[0];
         const embed: Eris.EmbedOptions = {
-          title: `${ctx.prefix}${command.name}`,
+          title: `${prefix}${command.name}`,
           color: 0x7289da,
           fields: [],
           description: command.description
@@ -75,7 +77,7 @@ export default class HelpCommand extends DexareCommand {
           text += `\n**Examples:**\n${command.metadata.examples.join('\n')}`;
           embed.fields!.push({
             name: 'Examples',
-            value: command.metadata.examples.map((a: string) => `${ctx.prefix}${a}`).join('\n'),
+            value: command.metadata.examples.map((a: string) => `${prefix}${a}`).join('\n'),
             inline: true
           });
         }
@@ -102,7 +104,7 @@ export default class HelpCommand extends DexareCommand {
     const embed: Eris.EmbedOptions = {
       color: 0x7289da,
       footer: {
-        text: `Run "${ctx.prefix}help <command>" for more info on a command.`
+        text: `Run "${prefix}help <command>" for more info on a command.`
       },
       fields: []
     };
