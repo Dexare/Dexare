@@ -1,7 +1,7 @@
 <div align="center">
 
 # Dexare
-[![NPM version](https://img.shields.io/npm/v/dexare?maxAge=3600)](https://www.npmjs.com/package/dexare) [![NPM downloads](https://img.shields.io/npm/dt/dexare?maxAge=3600)](https://www.npmjs.com/package/dexare) [![ESLint status](https://github.com/Snazzah/Dexare/workflows/ESLint/badge.svg)](https://github.com/Snazzah/Dexare/actions?query=workflow%3A%22ESLint%22) [![DeepScan grade](https://deepscan.io/api/teams/11596/projects/15945/branches/327753/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=11596&pid=15945&bid=327753) [![discord chat](https://img.shields.io/discord/311027228177727508?logo=discord&logoColor=white)](https://snaz.in/discord)
+[![NPM version](https://img.shields.io/npm/v/dexare?maxAge=3600)](https://www.npmjs.com/package/dexare) [![NPM downloads](https://img.shields.io/npm/dt/dexare?maxAge=3600)](https://www.npmjs.com/package/dexare) [![ESLint status](https://github.com/Dexare/Dexare/workflows/ESLint/badge.svg)](https://github.com/Dexare/Dexare/actions?query=workflow%3A%22ESLint%22) [![DeepScan grade](https://deepscan.io/api/teams/11596/projects/15945/branches/327753/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=11596&pid=15945&bid=327753) [![discord chat](https://img.shields.io/discord/311027228177727508?logo=discord&logoColor=white)](https://snaz.in/discord)
 
 </div>
 
@@ -9,7 +9,7 @@ Dexare is a Discord bot framework that allows for extensibility. Easily make mod
 
 Don't like the built-in features? Make some features yourself! With the module system, you can make sure your handler is used before or after others, and also skip other handlers if needed.
 
-> Proper documentation has not been created yet, there is [indev documentation](https://github.com/Snazzah/Dexare/wiki) available.
+> Proper documentation has not been created yet, there is [indev documentation](https://github.com/Dexare/Dexare/wiki) available.
 
 ## Features
 - **Eventful** - hook into events easily and cancel other module's handlers
