@@ -64,7 +64,6 @@ export default class CommandContext {
     // @ts-ignore
     content.message_reference = { message_id: this.message.id };
     // content.messageReferenceID = this.message.id;
-    if (content.content && this.guild) content.content = `${this.message.author.mention}, ${content.content}`;
     return this.message.channel.createMessage(content, file);
   }
 
