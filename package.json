@@ -6,9 +6,9 @@
   "types": "./lib/index.d.ts",
   "author": "Snazzah",
   "license": "MIT",
-  "repository": "https://github.com/Snazzah/Dexare",
+  "repository": "https://github.com/Dexare/Dexare",
   "bugs": {
-    "url": "https://github.com/Snazzah/Dexare/issues"
+    "url": "https://github.com/Dexare/Dexare/issues"
   },
   "keywords": [
     "api",

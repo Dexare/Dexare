@@ -30,16 +30,15 @@ arr = futureChangelog
   .split('\n')
   .map((line) =>
     line.startsWith('[Unreleased]')
-      ? `[Unreleased]: https://github.com/Snazzah/Dexare/compare/v${currentVersion}...HEAD`
+      ? `[Unreleased]: https://github.com/Dexare/Dexare/compare/v${currentVersion}...HEAD`
       : line
   );
 
 // eslint-disable-next-line no-useless-escape
-const lastVersion = ([...arr].reverse()[1].match(/\[([^\][]*)]/) ||
-  [])[0].replace(/[[\]']+/g, '');
+const lastVersion = ([...arr].reverse()[1].match(/\[([^\][]*)]/) || [])[0].replace(/[[\]']+/g, '');
 if (!lastVersion) throw new Error("Can't find last version in changelog.");
 
-const lastLine = `[${currentVersion}]: https://github.com/Snazzah/Dexare/compare/v${lastVersion}...v${currentVersion}`;
+const lastLine = `[${currentVersion}]: https://github.com/Dexare/Dexare/compare/v${lastVersion}...v${currentVersion}`;
 if (arr[arr.length - 1] === '') arr[arr.length - 1] = lastLine;
 else arr.push(lastLine);
 futureChangelog = arr.join('\n');
