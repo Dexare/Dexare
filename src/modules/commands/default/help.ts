@@ -68,12 +68,12 @@ export default class HelpCommand extends DexareCommand {
           text += `\n**Usage:** ${command.metadata.usage}`;
           embed.fields!.push({
             name: 'Usage',
-            value: command.metadata.usage
+            value: `${prefix}${command.name} \`${command.metadata.usage}\``
           });
         }
 
         // Examples
-        if (command.metadata?.examples.length !== 0) {
+        if (command.metadata?.examples && command.metadata?.examples.length !== 0) {
           text += `\n**Examples:**\n${command.metadata.examples.join('\n')}`;
           embed.fields!.push({
             name: 'Examples',
