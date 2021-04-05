@@ -42,9 +42,12 @@ export default class PermissionRegistry<T extends DexareClient<any>> {
       this.permissions.set('discord.' + permission.toLowerCase(), (object) => {
         if (object instanceof Eris.Message)
           if ('guild' in object.channel && object.member)
-            return object.channel.permissionsOf(object.member).has(permission);
+            return object.channel
+              .permissionsOf(object.member)
+              .has(permission as keyof Eris.Constants['Permissions']);
           else return DirectMessagePermissions.includes(permission);
-        else if (object instanceof Eris.Member) return object.guild.permissionsOf(object).has(permission);
+        else if (object instanceof Eris.Member)
+          return object.guild.permissionsOf(object).has(permission as keyof Eris.Constants['Permissions']);
         return DirectMessagePermissions.includes(permission);
       });
     }

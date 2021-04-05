@@ -16,7 +16,7 @@ export interface CommandOptions {
     /** The required permission(s) for a user to use this command. */
     userPermissions?: string[];
     /** The required client permission(s) for this command. */
-    clientPermissions?: string[];
+    clientPermissions?: (keyof Eris.Constants['Permissions'])[];
     /** The throttling options for the command. */
     throttling?: ThrottlingOptions;
     /** Metadata for the command. Useful for any other identifiers for the command. */
@@ -47,9 +47,9 @@ export default class DexareCommand {
     /** The command's description. */
     readonly description?: string;
     /** The permissions required to use this command. */
-    readonly userPermissions?: Array<string>;
+    readonly userPermissions?: string[];
     /** The permissions the client is required to have for this command. */
-    readonly clientPermissions?: Array<string>;
+    readonly clientPermissions?: (keyof Eris.Constants['Permissions'])[];
     /** The throttling options for this command. */
     readonly throttling?: ThrottlingOptions;
     /** Metadata for the command. */

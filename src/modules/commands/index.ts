@@ -222,8 +222,6 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
     event.set('commands/command', command);
     event.set('commands/ctx', ctx);
 
-    /**
-
     // Obtain the member if we don't have it
     if ('permissionsOf' in message.channel && !ctx.guild?.members.has(ctx.author.id) && !message.webhookID) {
       const member = (await ctx.guild?.fetchMembers({ userIDs: [ctx.author.id] }))![0];
@@ -232,11 +230,12 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
     }
 
     // Obtain the member for the ClientUser if it doesn't already exist
-    if ('permissionsOf' in message.channel && !ctx.guild!.members.has(client.user.id)) {
-      ctx.guild!.members.set(client.user.id, (await ctx.guild?.fetchMembers({ userIDs: [client.user.id] }))![0]);
+    if ('permissionsOf' in message.channel && !ctx.guild!.members.has(ctx.client.bot.user.id)) {
+      ctx.guild!.members.set(
+        ctx.client.bot.user.id,
+        (await ctx.guild?.fetchMembers({ userIDs: [ctx.client.bot.user.id] }))![0]
+      );
     }
-
-    **/
 
     // Ensure the user has permission to use the command
     const hasPermission = command.hasPermission(ctx);
@@ -251,7 +250,9 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
     // Ensure the client user has the required permissions
     if ('permissionsOf' in message.channel && command.clientPermissions) {
       const perms = message.channel.permissionsOf(this.client.bot.user.id).json;
-      const missing = command.clientPermissions.filter((perm: string) => !perms[perm]);
+      const missing = command.clientPermissions.filter(
+        (perm: keyof Eris.Constants['Permissions']) => !perms[perm]
+      );
       if (missing.length > 0) {
         const data = { missing };
         await command.onBlock(ctx, 'clientPermissions', data);

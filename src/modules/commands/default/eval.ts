@@ -96,7 +96,8 @@ export default class EvalCommand extends DexareCommand {
 
   get sensitivePattern() {
     if (!this._sensitivePattern) {
-      const token = this.client.bot.token;
+      // @ts-ignore
+      const token = this.client.bot._token;
       let pattern = '';
       if (token) pattern += escapeRegex(token);
       Object.defineProperty(this, '_sensitivePattern', {

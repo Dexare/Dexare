@@ -38,7 +38,7 @@
   "dependencies": {
     "@discordjs/collection": "^0.1.6",
     "common-tags": "^1.8.0",
-    "eris": "^0.14.0",
+    "eris": "^0.15.0",
     "eventemitter3": "^4.0.7",
     "lodash": "^4.17.20"
   },

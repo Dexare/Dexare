@@ -61,9 +61,7 @@ export default class CommandContext {
    */
   reply(content: Eris.MessageContent, file?: Eris.MessageFile | Eris.MessageFile[]) {
     if (typeof content === 'string') content = { content };
-    // @ts-ignore
-    content.message_reference = { message_id: this.message.id };
-    // content.messageReferenceID = this.message.id;
+    content.messageReferenceID = this.message.id;
     return this.message.channel.createMessage(content, file);
   }
 
@@ -78,9 +76,8 @@ export default class CommandContext {
   }
 
   /**
-
-  // This won't work properly without guildMembers intent,
-  // wait till next Eris patch
+   * Fetches the member for this message and assigns it.
+   */
   async fetchMember() {
     if (this.member) return this.member;
     if (!this.guild) return null;
@@ -91,6 +88,4 @@ export default class CommandContext {
     this.member = member;
     return member;
   }
-
-  **/
 }

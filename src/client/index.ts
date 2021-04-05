@@ -53,6 +53,8 @@ export default class DexareClient<
     super();
 
     this.config = config;
+    if (!this.config.token.startsWith('Bot ')) this.config.token = 'Bot ' + this.config.token;
+
     this.bot = new Eris.Client(this.config.token, this.config.erisOptions);
     this.permissions = new PermissionRegistry(this);
     this.modules.set('commands', this.commands);
@@ -190,6 +192,7 @@ export default class DexareClient<
    */
   on<E extends keyof DexareEvents>(event: E, listener: DexareEvents[E]) {
     if (typeof event === 'string' && !this._hookedEvents.includes(event) && ErisEventNames.includes(event)) {
+      // @ts-ignore
       this.bot.on(event, (...args: any[]) => this.emit(event, ...args));
       this._hookedEvents.push(event);
     }

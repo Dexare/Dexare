@@ -42,4 +42,8 @@ export default class CommandContext {
      * Only prepends in guild channels.
      */
     replyMention(content: Eris.MessageContent, file?: Eris.MessageFile | Eris.MessageFile[]): Promise<Eris.Message<Eris.TextableChannel>>;
+    /**
+     * Fetches the member for this message and assigns it.
+     */
+    fetchMember(): Promise<Eris.Member | null>;
 }
