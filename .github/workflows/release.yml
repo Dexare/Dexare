@@ -72,7 +72,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           registry-url: 'https://npm.pkg.github.com/'
-          scope: '@snazzah'
+          scope: '@dexare'
 
       - run: npm install
       - run: npm run gpr
