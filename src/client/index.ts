@@ -53,9 +53,10 @@ export default class DexareClient<
     super();
 
     this.config = config;
-    if (!this.config.token.startsWith('Bot ')) this.config.token = 'Bot ' + this.config.token;
+    let token = this.config.token;
+    if (!this.config.token.startsWith('Bot ')) token = 'Bot ' + this.config.token;
 
-    this.bot = new Eris.Client(this.config.token, this.config.erisOptions);
+    this.bot = new Eris.Client(token, this.config.erisOptions);
     this.permissions = new PermissionRegistry(this);
     this.modules.set('commands', this.commands);
     this.commands._load();
