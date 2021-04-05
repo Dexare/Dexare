@@ -13,4 +13,5 @@ logs/
 docs/docs.json
 webpack/
 testing/
+lib/
 .husky/_/
