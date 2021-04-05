@@ -5,14 +5,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [1.3.0] - 2021-04-05
+### Changed:
+- Dexare will automatically prepend `Bot` to the token if not there already
+- Dexare now uses Eris 0.15.0
+### Added:
+- Dexare will ensure the member within the message if ran within guilds
+- 'commands/spacedPrefix' event variable in commands module
+### Fixed:
+- Unnessesary mention in default ping command
+- Parsing within the default help command
 ## [1.2.1] - 2021-02-22
 ### Fixed:
 - Load modules asynchronously in the "load" default command
 - Requiring already loaded depenedencies no longer attempts to load it
+- Appending mentions in `ctx.reply`
 ## [1.2.0] - 2021-02-22
 ### Changed:
 - `CommandContext#reply` now creates a reply rather than appending a mention
-  - Previos functionality is moved to `CommandContext#replyMention`
+  - Previous functionality is moved to `CommandContext#replyMention`
 ### Added:
 - `DexareClient#loadModule`
 - `DexareClient#loadModulesAsync`
@@ -51,9 +62,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2021-02-13
 - Initial release.
 
-[Unreleased]: https://github.com/Dexare/Dexare/compare/v1.2.1...HEAD
+[Unreleased]: https://github.com/Dexare/Dexare/compare/v1.3.0...HEAD
 [1.0.0]: https://github.com/Dexare/Dexare/releases/tag/v1.0.0
 [1.0.1]: https://github.com/Dexare/Dexare/compare/v0.1.0...v1.0.1
 [1.1.0]: https://github.com/Dexare/Dexare/compare/v1.0.1...v1.1.0
 [1.2.0]: https://github.com/Dexare/Dexare/compare/v1.1.0...v1.2.0
 [1.2.1]: https://github.com/Dexare/Dexare/compare/v1.2.0...v1.2.1
+[1.3.0]: https://github.com/Dexare/Dexare/compare/v1.2.1...v1.3.0
