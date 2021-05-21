@@ -8,9 +8,7 @@
 
 Dexare is a Discord bot framework that allows for extensibility. Easily make modules that depend on others or overwrite their functions.
 
-Don't like the built-in features? Make some features yourself! With the module system, you can make sure your handler is used before or after others, and also skip other handlers if needed.
-
-> Proper documentation has not been created yet, there is [indev documentation](https://github.com/Dexare/Dexare/wiki) available.
+Don't like the built-in features? Make some features yourself! With the module system, you can make sure your handler is used before or after others, or skip other handlers if needed. [Documentation for Dexare](https://github.com/Dexare/Dexare/wiki) available.
 
 ## Features
 - **Eventful** - hook into events easily and cancel other module's handlers
@@ -22,3 +20,4 @@ Don't like the built-in features? Make some features yourself! With the module s
 ## Notes
 - This module serves as a backbone for any future projects. The core features may not suit your needs. but thats what the modules are for!
 - You can use `client.logToConsole()` to push logs to console, but you can also make a logging module and listen to the `logger` event.
+- Find Dexare modules on NPM [here](https://www.npmjs.com/search?q=keywords:dexare-module).
