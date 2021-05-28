@@ -11,8 +11,9 @@ export default class LoadCommand extends DexareCommand {
       category: 'Developer',
       userPermissions: ['dexare.elevated'],
       metadata: {
-        examples: ['load ./path/to/module'],
-        usage: '<path> [path] ...'
+        examples: ['load ./path/to/module', 'load ~@dexare/logger'],
+        usage: '<path> [path] ...',
+        details: 'You can prefix a path name with `~` to load from a package.'
       }
     });
 
@@ -26,8 +27,14 @@ export default class LoadCommand extends DexareCommand {
 
     for (const arg of ctx.args) {
       try {
-        delete require.cache[require.resolve(path.join(process.cwd(), arg))];
-        const mod = require(path.join(process.cwd(), arg));
+        let requirePath: string;
+        if (arg.startsWith('~')) {
+          requirePath = arg.slice(1);
+        } else {
+          requirePath = path.join(process.cwd(), arg);
+        }
+        delete require.cache[require.resolve(requirePath)];
+        const mod = require(requirePath);
         mods.push(mod);
       } catch (e) {
         if (e.code === 'MODULE_NOT_FOUND') return `A module could not be found in \`${arg}\`.`;
