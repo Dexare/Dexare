@@ -41,6 +41,7 @@ export { MessageCollectorOptions, MessageCollectorFilter } from './modules/colle
 export { DefaultCommand } from './modules/commands';
 export { CommandOptions, ThrottlingOptions } from './modules/commands/command';
 export { StringIterator } from './modules/commands/interpreter';
+export { ThrottleObject, ThrottleResult } from './dataManager';
 export { ErisEventNames, PermissionNames } from './constants';
 export { ModuleOptions } from './module';
 export { ErisEvents, LoggerExtra } from './types';
