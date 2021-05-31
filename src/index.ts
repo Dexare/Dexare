@@ -9,8 +9,10 @@ import DexareCommand from './modules/commands/command';
 import CommandContext from './modules/commands/context';
 import ArgumentInterpreter from './modules/commands/interpreter';
 import DexareModule from './module';
-import * as Util from './util';
 import LoggerHandler from './util/logger';
+import DataManager from './dataManager';
+import MemoryDataManager from './dataManagers/memory';
+import * as Util from './util';
 
 export {
   DexareClient,
@@ -25,6 +27,8 @@ export {
   ArgumentInterpreter,
   DexareModule,
   LoggerHandler,
+  DataManager,
+  MemoryDataManager,
   Util
 };
 

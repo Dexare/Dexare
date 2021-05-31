@@ -261,14 +261,15 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
     }
 
     // Throttle the command
-    const throttle = await command.throttle(ctx.author);
-    if (throttle && command.throttling && throttle.usages + 1 > command.throttling.usages) {
-      const remaining = (throttle.start + command.throttling.duration * 1000 - Date.now()) / 1000;
-      const data = { throttle, remaining };
-      command.onBlock(ctx, 'throttling', data);
-      return;
+    if (command.throttling) {
+      const throttle = await command.throttle(ctx.author);
+      if (throttle && !throttle.okay) {
+        const remaining = throttle.reset ? (throttle.reset - Date.now()) / 1000 : null;
+        const data = { throttle, remaining };
+        command.onBlock(ctx, 'throttling', data);
+        return;
+      }
     }
-    if (throttle) throttle.usages++;
 
     // Run the command
     try {

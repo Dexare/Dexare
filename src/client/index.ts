@@ -10,6 +10,8 @@ import LoggerHandler from '../util/logger';
 import TypedEmitter from '../util/typedEmitter';
 import EventRegistry from './events';
 import PermissionRegistry from './permissions';
+import DataManager from '../dataManager';
+import MemoryDataManager from '../dataManagers/memory';
 
 export interface BaseConfig {
   token: string;
@@ -43,6 +45,7 @@ export default class DexareClient<
   readonly modules = new Collection<string, DexareModule<this>>();
   readonly commands = new CommandsModule<this>(this);
   readonly collector = new CollectorModule<this>(this);
+  data: DataManager = new MemoryDataManager(this);
   // eslint-disable-next-line no-undef
   private readonly _typingIntervals = new Map<string, NodeJS.Timeout>();
   private readonly _hookedEvents: string[] = [];
@@ -212,12 +215,14 @@ export default class DexareClient<
   /** Connects and logs in to Discord. */
   async connect() {
     await this.events.emitAsync('beforeConnect');
+    await this.data.start();
     return this.bot.connect();
   }
 
   /** Disconnects the bot. */
   async disconnect(reconnect: boolean | 'auto' = false) {
     await this.events.emitAsync('beforeDisconnect', reconnect);
+    await this.data.stop();
     return this.bot.disconnect({ reconnect });
   }
 

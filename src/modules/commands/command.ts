@@ -36,13 +36,6 @@ export interface ThrottlingOptions {
   bypass?: string[];
 }
 
-/** @private */
-export interface ThrottleObject {
-  start: number;
-  usages: number;
-  timeout: any;
-}
-
 export default class DexareCommand {
   /** The command's name. */
   readonly name: string;
@@ -72,8 +65,6 @@ export default class DexareCommand {
   /** The client from the commands module. */
   readonly client: DexareClient<any>;
 
-  /** Current throttle objects for the command, mapped by user ID. */
-  private _throttles = new Map<string, ThrottleObject>();
   /** Whether the command is enabled globally */
   private _globalEnabled = true;
 
@@ -161,9 +152,11 @@ export default class DexareCommand {
       }
       case 'throttling': {
         return ctx.reply(
-          `You may not use the \`${this.name}\` command again for another ${data.remaining.toFixed(
-            1
-          )} seconds.`
+          data.remaining
+            ? `You may not use the \`${this.name}\` command again for another ${data.remaining.toFixed(
+                1
+              )} seconds.`
+            : `You are currently ratelimited from using the \`${this.name}\` command. Try again later.`
         );
       }
       default:
@@ -191,12 +184,12 @@ export default class DexareCommand {
   }
 
   /**
-   * Creates/obtains the throttle object for a user, if necessary.
-   * @param userID ID of the user to throttle for
-   * @private
+   * Used to throttle a user from the command.
+   * @param object The permission object to throttle
+   * @param event The event to use
    */
   async throttle(object: Eris.Message | Eris.User | Eris.Member, event?: ClientEvent) {
-    if (!this.throttling) return null;
+    if (!this.throttling) return;
 
     if (this.throttling.bypass && this.throttling.bypass.length) {
       let permissionMap = event && event.has('dexare/permissionMap') ? event.get('dexare/permissionMap') : {};
@@ -211,19 +204,7 @@ export default class DexareCommand {
     else if (object instanceof Eris.Member) user = object.user;
     else user = object;
 
-    let throttle = this._throttles.get(user.id);
-    if (!throttle) {
-      throttle = {
-        start: Date.now(),
-        usages: 0,
-        timeout: setTimeout(() => {
-          this._throttles.delete(user.id);
-        }, this.throttling.duration * 1000)
-      };
-      this._throttles.set(user.id, throttle);
-    }
-
-    return throttle;
+    return await this.client.data.throttle('command_' + this.name, this.throttling, user.id, event);
   }
 
   /**
