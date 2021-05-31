@@ -1,12 +1,13 @@
 import Collection from '@discordjs/collection';
 import Eris from 'eris';
+import { PermissionObject } from '../types';
 import LoggerHandler from '../util/logger';
 import { ClientEvent } from './events';
 import DexareClient from './index';
 
 /** The function for a permission. */
 export type PermissionFunction<T extends DexareClient<any>> = (
-  object: Eris.Message | Eris.User | Eris.Member,
+  object: PermissionObject,
   client: T,
   event?: ClientEvent
 ) => boolean;
@@ -55,25 +56,20 @@ export default class PermissionRegistry<T extends DexareClient<any>> {
     this.permissions.set('dexare.elevated', (object, client) => {
       if (!client.config.elevated) return false;
 
-      let user: Eris.User;
-      if (object instanceof Eris.Message) user = object.author;
-      else if (object instanceof Eris.Member) user = object.user;
-      else user = object;
-
-      if (Array.isArray(client.config.elevated)) return client.config.elevated.includes(user.id);
-      return client.config.elevated === user.id;
+      if (Array.isArray(client.config.elevated)) return client.config.elevated.includes(object.user.id);
+      return client.config.elevated === object.user.id;
     });
 
     this.permissions.set('dexare.inguild', (object) => {
-      if (object instanceof Eris.User) return false;
-      if (object instanceof Eris.Member) return true;
-      return 'guild' in object.channel;
+      if (object.member) return true;
+      if (object.message) return 'guild' in object.message.channel;
+      return false;
     });
 
     this.permissions.set('dexare.nsfwchannel', (object) => {
       // False for users, why would anyone use a channel perm on users
-      if (!(object instanceof Eris.Message)) return false;
-      return 'nsfw' in object.channel ? object.channel.nsfw : true;
+      if (!object.message) return false;
+      return 'nsfw' in object.message.channel ? object.message.channel.nsfw : true;
     });
   }
 
@@ -108,7 +104,7 @@ export default class PermissionRegistry<T extends DexareClient<any>> {
    * @param permission The permission to check
    * @param event The client event to associate the function
    */
-  has(object: Eris.Message | Eris.User | Eris.Member, permission: string, event?: ClientEvent) {
+  has(object: PermissionObject, permission: string, event?: ClientEvent) {
     permission = permission.toLowerCase();
     if (!permission || !this.permissions.has(permission)) return false;
     return this.permissions.get(permission)!(object, this.client, event);
@@ -122,7 +118,7 @@ export default class PermissionRegistry<T extends DexareClient<any>> {
    * @param event The client event to associate
    */
   map(
-    object: Eris.Message | Eris.User | Eris.Member,
+    object: PermissionObject,
     permissions: string[],
     prevMap: { [permission: string]: boolean } = {},
     event?: ClientEvent
@@ -133,5 +129,24 @@ export default class PermissionRegistry<T extends DexareClient<any>> {
     }
 
     return prevMap;
+  }
+
+  /**
+   * Convert something into a permission object.
+   * @param object The object to convert
+   */
+  toObject(object: Eris.Message | Eris.User | Eris.Member): PermissionObject {
+    const result: any = {};
+
+    let user: Eris.User;
+    if (object instanceof Eris.Message) user = object.author;
+    else if (object instanceof Eris.Member) user = object.user;
+    else user = object;
+
+    result.user = user;
+    if (object instanceof Eris.Message) result.message = object;
+    if (object instanceof Eris.Member) result.member = object;
+
+    return result;
   }
 }

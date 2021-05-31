@@ -95,8 +95,9 @@ export default class DexareCommand {
    */
   hasPermission(ctx: CommandContext, event?: ClientEvent): boolean | string {
     if (this.userPermissions) {
+      const permObject = this.client.permissions.toObject(ctx.message);
       let permissionMap = event && event.has('dexare/permissionMap') ? event.get('dexare/permissionMap') : {};
-      permissionMap = this.client.permissions.map(ctx.message, this.userPermissions, permissionMap, event);
+      permissionMap = this.client.permissions.map(permObject, this.userPermissions, permissionMap, event);
       if (event) event.set('dexare/permissionMap', permissionMap);
       const missing = this.userPermissions.filter((perm: string) => !permissionMap[perm]);
 
@@ -192,8 +193,9 @@ export default class DexareCommand {
     if (!this.throttling) return;
 
     if (this.throttling.bypass && this.throttling.bypass.length) {
+      const permObject = this.client.permissions.toObject(object);
       let permissionMap = event && event.has('dexare/permissionMap') ? event.get('dexare/permissionMap') : {};
-      permissionMap = this.client.permissions.map(object, this.throttling.bypass, permissionMap, event);
+      permissionMap = this.client.permissions.map(permObject, this.throttling.bypass, permissionMap, event);
       if (event) event.set('dexare/permissionMap', permissionMap);
       const missing = this.throttling.bypass.filter((perm: string) => !permissionMap[perm]);
       if (!missing.length) return;

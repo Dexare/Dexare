@@ -143,3 +143,10 @@ export interface LoggerExtra extends LoggerExtraBase {
   id?: number;
   trace?: string[];
 }
+
+/** The object for checking permissions. */
+export interface PermissionObject {
+  user: Eris.User;
+  member?: Eris.Member;
+  message?: Eris.Message;
+}
