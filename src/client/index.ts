@@ -36,7 +36,7 @@ export type DexareEvents = DexareClientEvents & {
 
 export default class DexareClient<
   T extends BaseConfig = BaseConfig
-> extends (EventEmitter as any as new () => TypedEmitter<DexareEvents>) {
+> extends ((EventEmitter as any) as new () => TypedEmitter<DexareEvents>) {
   config: T;
   readonly bot: Eris.Client;
   readonly permissions: PermissionRegistry<this>;
@@ -130,6 +130,23 @@ export default class DexareClient<
     this._log('debug', `Unloading module "${moduleName}"`);
     await mod.unload();
     this.modules.delete(moduleName);
+  }
+
+  /**
+   * Loads a data manager asynchronously into the client.
+   * @param moduleObject The manager to load
+   * @param startOnLoad Whether to start the manager after loading
+   */
+  async loadDataManager(mgrObject: any, startOnLoad = false) {
+    if (typeof mgrObject === 'function') mgrObject = new mgrObject(this);
+    else if (typeof mgrObject.default === 'function') mgrObject = new mgrObject.default(this);
+
+    if (!(mgrObject instanceof DataManager))
+      throw new Error(`Invalid data manager object to load: ${mgrObject}`);
+
+    await this.data.stop();
+    this.data = mgrObject;
+    if (startOnLoad) await this.data.start();
   }
 
   /**
