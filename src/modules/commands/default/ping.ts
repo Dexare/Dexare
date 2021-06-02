@@ -23,7 +23,7 @@ export default class PingCommand extends DexareCommand {
       .reduce((prev, val) => prev + val, 0);
     const timeBeforeMessage = Date.now();
     const pingMsg = await ctx.reply('Pinging...');
-    return pingMsg.edit(oneLine`
+    await pingMsg.edit(oneLine`
       Pong! The message took ${(Date.now() - timeBeforeMessage).toLocaleString()}ms to be created.
       The heartbeat ping is ${Math.round(currentPing).toLocaleString()}ms.
     `);
