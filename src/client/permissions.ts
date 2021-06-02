@@ -144,8 +144,11 @@ export default class PermissionRegistry<T extends DexareClient<any>> {
     else user = object;
 
     result.user = user;
-    if (object instanceof Eris.Message) result.message = object;
     if (object instanceof Eris.Member) result.member = object;
+    if (object instanceof Eris.Message) {
+      result.message = object;
+      if (object.member) result.member = object.member;
+    }
 
     return result;
   }

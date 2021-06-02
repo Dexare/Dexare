@@ -191,9 +191,9 @@ export default class DexareCommand {
    */
   async throttle(object: Eris.Message | Eris.User | Eris.Member, event?: ClientEvent) {
     if (!this.throttling) return;
+    const permObject = this.client.permissions.toObject(object);
 
     if (this.throttling.bypass && this.throttling.bypass.length) {
-      const permObject = this.client.permissions.toObject(object);
       let permissionMap = event && event.has('dexare/permissionMap') ? event.get('dexare/permissionMap') : {};
       permissionMap = this.client.permissions.map(permObject, this.throttling.bypass, permissionMap, event);
       if (event) event.set('dexare/permissionMap', permissionMap);
@@ -201,12 +201,12 @@ export default class DexareCommand {
       if (!missing.length) return;
     }
 
-    let user: Eris.User;
-    if (object instanceof Eris.Message) user = object.author;
-    else if (object instanceof Eris.Member) user = object.user;
-    else user = object;
-
-    return await this.client.data.throttle('command_' + this.name, this.throttling, user.id, event);
+    return await this.client.data.throttle(
+      'command_' + this.name,
+      this.throttling,
+      permObject.user.id,
+      event
+    );
   }
 
   /**

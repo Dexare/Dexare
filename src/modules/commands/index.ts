@@ -262,7 +262,7 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
 
     // Throttle the command
     if (command.throttling) {
-      const throttle = await command.throttle(ctx.author);
+      const throttle = await command.throttle(ctx.message);
       if (throttle && !throttle.okay) {
         const remaining = throttle.reset ? (throttle.reset - Date.now()) / 1000 : null;
         const data = { throttle, remaining };
