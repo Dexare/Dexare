@@ -44,6 +44,6 @@ export { StringIterator } from './modules/commands/interpreter';
 export { ThrottleObject, ThrottleResult } from './dataManager';
 export { ErisEventNames, PermissionNames } from './constants';
 export { ModuleOptions } from './module';
-export { ErisEvents, LoggerExtra } from './types';
+export { ErisEvents, LoggerExtra, PermissionObject } from './types';
 
 export const VERSION: string = require('../package.json').version;
