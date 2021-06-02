@@ -34,7 +34,7 @@ export interface ResetTimerOptions {
 }
 
 /** Class for defining a collector. */
-export default class Collector extends ((EventEmitter as any) as new () => TypedEmitter<CollectorEvents>) {
+export default class Collector extends (EventEmitter as any as new () => TypedEmitter<CollectorEvents>) {
   readonly module: CollectorModule<DexareClient<any>>;
   readonly client: DexareClient;
 
