@@ -88,4 +88,18 @@ export default class CommandContext {
     this.member = member;
     return member;
   }
+
+  /**
+   * Start typing in the channel the context is in.
+   */
+  startTyping() {
+    return this.client.startTyping(this.channel.id);
+  }
+
+  /**
+   * Stop typing in the channel the context is in.
+   */
+  stopTyping() {
+    return this.client.stopTyping(this.channel.id);
+  }
 }
