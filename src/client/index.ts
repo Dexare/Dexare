@@ -36,7 +36,7 @@ export type DexareEvents = DexareClientEvents & {
 
 export default class DexareClient<
   T extends BaseConfig = BaseConfig
-> extends (EventEmitter as any as new () => TypedEmitter<DexareEvents>) {
+> extends ((EventEmitter as any) as new () => TypedEmitter<DexareEvents>) {
   config: T;
   readonly bot: Eris.Client;
   readonly permissions: PermissionRegistry<this>;
@@ -51,15 +51,18 @@ export default class DexareClient<
   private readonly _hookedEvents: string[] = [];
   private _erisEventsLogged = false;
 
-  constructor(config: T) {
+  constructor(config: T, bot?: Eris.Client) {
     // eslint-disable-next-line constructor-super
     super();
 
     this.config = config;
-    let token = this.config.token;
-    if (!this.config.token.startsWith('Bot ')) token = 'Bot ' + this.config.token;
+    if (bot) this.bot = bot;
+    else {
+      let token = this.config.token;
+      if (!this.config.token.startsWith('Bot ')) token = 'Bot ' + this.config.token;
 
-    this.bot = new Eris.Client(token, this.config.erisOptions);
+      this.bot = new Eris.Client(token, this.config.erisOptions);
+    }
     this.permissions = new PermissionRegistry(this);
     this.modules.set('commands', this.commands);
     this.commands._load();
