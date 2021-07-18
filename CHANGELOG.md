@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [2.1.0] - 2021-07-18
+### Changed:
+- You can now predefine the Eris client when creating a Dexare client
+### Added:
+- `afterConnect` and `afterDisconnect` events
 ## [2.0.1] - 2021-06-02
 ### Fixed:
 - Discord permissions within the client
@@ -77,7 +82,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2021-02-13
 - Initial release.
 
-[Unreleased]: https://github.com/Dexare/Dexare/compare/v2.0.1...HEAD
+[Unreleased]: https://github.com/Dexare/Dexare/compare/v2.1.0...HEAD
 [1.0.0]: https://github.com/Dexare/Dexare/releases/tag/v1.0.0
 [1.0.1]: https://github.com/Dexare/Dexare/compare/v0.1.0...v1.0.1
 [1.1.0]: https://github.com/Dexare/Dexare/compare/v1.0.1...v1.1.0
@@ -87,3 +92,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.3.1]: https://github.com/Dexare/Dexare/compare/v1.3.0...v1.3.1
 [2.0.0]: https://github.com/Dexare/Dexare/compare/v1.3.1...v2.0.0
 [2.0.1]: https://github.com/Dexare/Dexare/compare/v2.0.0...v2.0.1
+[2.1.0]: https://github.com/Dexare/Dexare/compare/v2.0.1...v2.1.0
