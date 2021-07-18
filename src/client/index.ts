@@ -38,7 +38,7 @@ export type DexareEvents = DexareClientEvents & {
 
 export default class DexareClient<
   T extends BaseConfig = BaseConfig
-> extends ((EventEmitter as any) as new () => TypedEmitter<DexareEvents>) {
+> extends (EventEmitter as any as new () => TypedEmitter<DexareEvents>) {
   config: T;
   readonly bot: Eris.Client;
   readonly permissions: PermissionRegistry<this>;
