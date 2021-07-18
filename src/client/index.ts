@@ -26,7 +26,9 @@ export interface BaseConfig {
 export interface DexareClientEvents extends ErisEvents {
   logger(level: string, group: string, args: any[], extra?: LoggerExtra): void;
   beforeConnect(): void;
+  afterConnect(): void;
   beforeDisconnect(reconnect: boolean | 'auto'): void;
+  afterDisconnect(reconnect: boolean | 'auto'): void;
 }
 
 /** @hidden */
@@ -36,7 +38,7 @@ export type DexareEvents = DexareClientEvents & {
 
 export default class DexareClient<
   T extends BaseConfig = BaseConfig
-> extends (EventEmitter as any as new () => TypedEmitter<DexareEvents>) {
+> extends ((EventEmitter as any) as new () => TypedEmitter<DexareEvents>) {
   config: T;
   readonly bot: Eris.Client;
   readonly permissions: PermissionRegistry<this>;
@@ -236,14 +238,16 @@ export default class DexareClient<
   async connect() {
     await this.events.emitAsync('beforeConnect');
     await this.data.start();
-    return this.bot.connect();
+    await this.bot.connect();
+    await this.events.emitAsync('afterConnect');
   }
 
   /** Disconnects the bot. */
   async disconnect(reconnect: boolean | 'auto' = false) {
     await this.events.emitAsync('beforeDisconnect', reconnect);
     await this.data.stop();
-    return this.bot.disconnect({ reconnect });
+    this.bot.disconnect({ reconnect });
+    await this.events.emitAsync('afterDisconnect', reconnect);
   }
 
   /**
