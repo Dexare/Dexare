@@ -29,4 +29,4 @@ docs/
 test/
 testing/
 tsconfig.json
-.husky/_/
+.husky/
