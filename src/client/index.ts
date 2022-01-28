@@ -146,7 +146,7 @@ export default class DexareClient<
     if (typeof mgrObject === 'function') mgrObject = new mgrObject(this);
     else if (typeof mgrObject.default === 'function') mgrObject = new mgrObject.default(this);
 
-    if (!(mgrObject instanceof DataManager))
+    if (typeof mgrObject.start !== 'function')
       throw new Error(`Invalid data manager object to load: ${mgrObject}`);
 
     await this.data.stop();
@@ -289,9 +289,9 @@ export default class DexareClient<
     if (typeof moduleObject === 'function') moduleObject = new moduleObject(this);
     else if (typeof moduleObject.default === 'function') moduleObject = new moduleObject.default(this);
 
-    if (!(moduleObject instanceof DexareModule))
+    if (typeof moduleObject.load !== 'function')
       throw new Error(`Invalid module object to load: ${moduleObject}`);
-    return moduleObject;
+    return moduleObject as DexareModule<this>;
   }
 
   /** @hidden */

@@ -49,12 +49,13 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
    * Registers a command.
    * @param command The command to register
    */
-  register(command: any) {
-    if (typeof command === 'function') command = new command(this.client);
-    else if (typeof command.default === 'function') command = new command.default(this.client);
+  register(commandObj: any) {
+    if (typeof commandObj === 'function') commandObj = new commandObj(this.client);
+    else if (typeof commandObj.default === 'function') commandObj = new commandObj.default(this.client);
 
-    if (!(command instanceof DexareCommand))
-      throw new Error(`Invalid command object to register: ${command}`);
+    if (typeof commandObj.run !== 'function')
+      throw new Error(`Invalid command object to register: ${commandObj}`);
+    const command = commandObj as DexareCommand;
 
     // Make sure there aren't any conflicts
     if (this.commands.some((cmd) => cmd.name === command.name || cmd.aliases.includes(command.name))) {
@@ -85,12 +86,13 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
    * @param command The new command
    * @param oldCommand The old command
    */
-  reregister(command: any, oldCommand: DexareCommand) {
-    if (typeof command === 'function') command = new command(this.client);
-    else if (typeof command.default === 'function') command = new command.default(this.client);
+  reregister(commandObj: any, oldCommand: DexareCommand) {
+    if (typeof commandObj === 'function') commandObj = new commandObj(this.client);
+    else if (typeof commandObj.default === 'function') commandObj = new commandObj.default(this.client);
 
-    if (!(command instanceof DexareCommand))
-      throw new Error(`Invalid command object to register: ${command}`);
+    if (typeof commandObj.run !== 'function')
+      throw new Error(`Invalid command object to register: ${commandObj}`);
+    const command = commandObj as DexareCommand;
 
     if (command.name !== oldCommand.name) throw new Error('Command name cannot change.');
 
