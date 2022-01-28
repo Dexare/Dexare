@@ -1,6 +1,6 @@
 {
   "name": "dexare",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "Modular and extendable Discord bot framework",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
