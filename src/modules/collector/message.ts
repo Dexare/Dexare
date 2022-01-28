@@ -4,7 +4,7 @@ import { DexareClient } from '../..';
 import { ClientEvent } from '../../client/events';
 import Collector, { CollectorOptions } from './collector';
 
-export type MessageCollectorFilter = (message: Eris.Message) => boolean;
+export type MessageCollectorFilter = (message: Eris.Message<Eris.PossiblyUncachedTextableChannel>) => boolean;
 
 export interface MessageCollectorOptions extends CollectorOptions {
   /** The maximum amount of messages to collect */
@@ -51,7 +51,7 @@ export default class MessageCollector extends Collector {
    * Handles a message for possible collection.
    * @param message The message that could be collected
    */
-  collect(event: ClientEvent, message: Eris.Message) {
+  collect(event: ClientEvent, message: Eris.Message<Eris.PossiblyUncachedTextableChannel>) {
     if (message.channel.id !== this.channel.id) return null;
     if (this.options.skip) this.options.skip.forEach((group) => event.skip(group));
     this.received++;
