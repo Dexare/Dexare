@@ -189,7 +189,10 @@ export default class DexareCommand {
    * @param object The permission object to throttle
    * @param event The event to use
    */
-  async throttle(object: Eris.Message | Eris.User | Eris.Member, event?: ClientEvent) {
+  async throttle(
+    object: Eris.Message<Eris.PossiblyUncachedTextableChannel> | Eris.User | Eris.Member,
+    event?: ClientEvent
+  ) {
     if (!this.throttling) return;
     const permObject = this.client.permissions.toObject(object);
 

@@ -37,8 +37,8 @@ export default class LoadCommand extends DexareCommand {
         const mod = require(requirePath);
         mods.push(mod);
       } catch (e) {
-        if (e.code === 'MODULE_NOT_FOUND') return `A module could not be found in \`${arg}\`.`;
-        return `Error loading module from \`${arg}\`: \`${e.toString()}\``;
+        if ((e as any)?.code === 'MODULE_NOT_FOUND') return `A module could not be found in \`${arg}\`.`;
+        return `Error loading module from \`${arg}\`: \`${String(e)}\``;
       }
     }
 
@@ -46,7 +46,7 @@ export default class LoadCommand extends DexareCommand {
       await this.client.loadModulesAsync(...mods);
       return `Loaded ${ctx.args.length.toLocaleString()} module(s).`;
     } catch (e) {
-      return `Error loading modules: \`${e.toString()}\``;
+      return `Error loading modules: \`${String(e)}\``;
     }
   }
 }

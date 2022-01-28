@@ -49,7 +49,7 @@ export default class DexareClient<
   readonly collector = new CollectorModule<this>(this);
   data: DataManager = new MemoryDataManager(this);
   // eslint-disable-next-line no-undef
-  private readonly _typingIntervals = new Map<string, NodeJS.Timeout>();
+  private readonly _typingIntervals = new Map<string, any>();
   private readonly _hookedEvents: string[] = [];
   private _erisEventsLogged = false;
 

@@ -137,7 +137,9 @@ export default class PermissionRegistry<T extends DexareClient<any>> {
    * Convert something into a permission object.
    * @param object The object to convert
    */
-  toObject(object: Eris.Message | Eris.User | Eris.Member): PermissionObject {
+  toObject(
+    object: Eris.Message<Eris.PossiblyUncachedTextableChannel> | Eris.User | Eris.Member
+  ): PermissionObject {
     const result: any = {};
 
     let user: Eris.User;

@@ -11,9 +11,9 @@ export default class CommandContext {
   /** The client from this context. */
   readonly client: DexareClient<any>;
   /** The message this context is reffering to. */
-  readonly message: Eris.Message;
+  readonly message: Eris.Message<Eris.PossiblyUncachedTextableChannel>;
   /** The channel that the message is in. */
-  readonly channel: Eris.TextableChannel;
+  readonly channel: Eris.TextableChannel | Eris.Uncached;
   /** The author of the message. */
   readonly author: Eris.User;
   /** The prefix used for this context. */
@@ -36,7 +36,7 @@ export default class CommandContext {
     event: ClientEvent,
     args: string[],
     prefix: string,
-    message: Eris.Message
+    message: Eris.Message<Eris.PossiblyUncachedTextableChannel>
   ) {
     this.cmdsModule = cmdsModule;
     this.client = cmdsModule.client;
@@ -51,28 +51,28 @@ export default class CommandContext {
   }
 
   /** Shorthand for `message.channel.createMessage`. */
-  send(content: Eris.MessageContent, file?: Eris.MessageFile | Eris.MessageFile[]) {
-    return this.message.channel.createMessage(content, file);
+  send(content: Eris.MessageContent, file?: Eris.FileContent | Eris.FileContent[]) {
+    return this.client.bot.createMessage(this.channel.id, content, file);
   }
 
   /**
    * Sends a message with the author's mention prepended to it.
    * Only prepends in guild channels.
    */
-  reply(content: Eris.MessageContent, file?: Eris.MessageFile | Eris.MessageFile[]) {
+  reply(content: Eris.MessageContent, file?: Eris.FileContent | Eris.FileContent[]) {
     if (typeof content === 'string') content = { content };
     content.messageReferenceID = this.message.id;
-    return this.message.channel.createMessage(content, file);
+    return this.client.bot.createMessage(this.channel.id, content, file);
   }
 
   /**
    * Sends a message with the author's mention prepended to it.
    * Only prepends in guild channels.
    */
-  replyMention(content: Eris.MessageContent, file?: Eris.MessageFile | Eris.MessageFile[]) {
+  replyMention(content: Eris.MessageContent, file?: Eris.FileContent | Eris.FileContent[]) {
     if (typeof content === 'string') content = { content };
     if (content.content && this.guild) content.content = `${this.message.author.mention}, ${content.content}`;
-    return this.message.channel.createMessage(content, file);
+    return this.client.bot.createMessage(this.channel.id, content, file);
   }
 
   /**

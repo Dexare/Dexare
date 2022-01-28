@@ -193,7 +193,7 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
   }
 
   /** @hidden */
-  private async onMessage(event: ClientEvent, message: Eris.Message) {
+  private async onMessage(event: ClientEvent, message: Eris.Message<Eris.PossiblyUncachedTextableChannel>) {
     if (message.author.bot || message.author.system) return;
 
     const prefixRegex = this._buildPrefixes(event);
@@ -205,7 +205,7 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
     if (!message.content || !match) return;
 
     const prefixUsed = match.groups!.prefix;
-    const strippedContent = message.content.substr(match[0].length);
+    const strippedContent = message.content.slice(match[0].length);
     const argInterpretor = new ArgumentInterpreter(strippedContent);
     const args = argInterpretor.parseAsStrings();
     const commandName = args.splice(0, 1)[0];
@@ -283,7 +283,7 @@ export default class CommandsModule<T extends DexareClient<any>> extends DexareM
       await command.finalize(retVal, ctx);
     } catch (err) {
       try {
-        await command.onError(err, ctx);
+        await command.onError(err as Error, ctx);
       } catch (secondErr) {
         this._logCommand('error', command, command.name, secondErr);
       }
