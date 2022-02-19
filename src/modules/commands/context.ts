@@ -61,7 +61,11 @@ export default class CommandContext {
    */
   reply(content: Eris.MessageContent, file?: Eris.FileContent | Eris.FileContent[]) {
     if (typeof content === 'string') content = { content };
-    content.messageReferenceID = this.message.id;
+    content.messageReference = {
+      messageID: this.message.id,
+      channelID: this.channel.id,
+      guildID: this.guild?.id
+    };
     return this.client.bot.createMessage(this.channel.id, content, file);
   }
 
