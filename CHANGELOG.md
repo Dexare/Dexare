@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ## [2.2.3] - 2022-02-19
 ### Fixed:
-- Fixed deperecated method of sending replies
+- Fixed deprecated method of sending replies
 ## [2.2.2] - 2022-01-28
 ### Fixed:
 - Fixed eris event names in constants
