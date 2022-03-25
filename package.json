@@ -1,6 +1,6 @@
 {
   "name": "dexare",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "Modular and extendable Discord bot framework",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -40,7 +40,7 @@
   "dependencies": {
     "@discordjs/collection": "0.1.6",
     "common-tags": "^1.8.2",
-    "eris": "^0.16.1",
+    "eris": "https://github.com/abalabahaha/eris#072db2e78ce83fc50d70a21f26f51781f725fa20",
     "eventemitter3": "^4.0.7",
     "lodash": "^4.17.21"
   },
