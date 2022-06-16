@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [3.0.0] - 2022-06-16
+### Breaking Changes:
+- The eris dependency is now a peer dependency, allowing to switch to a different commit of eris or a PR without updating Dexare
+- Eris has been updated to v0.17.0
 ## [2.2.4] - 2022-03-25
 ### Fixed:
 - Set eris dependency to a specific commit to fix https://github.com/abalabahaha/eris/pull/1334
@@ -97,7 +101,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2021-02-13
 - Initial release.
 
-[Unreleased]: https://github.com/Dexare/Dexare/compare/v2.2.4...HEAD
+[Unreleased]: https://github.com/Dexare/Dexare/compare/v3.0.0...HEAD
 [1.0.0]: https://github.com/Dexare/Dexare/releases/tag/v1.0.0
 [1.0.1]: https://github.com/Dexare/Dexare/compare/v0.1.0...v1.0.1
 [1.1.0]: https://github.com/Dexare/Dexare/compare/v1.0.1...v1.1.0
@@ -113,3 +117,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [2.2.2]: https://github.com/Dexare/Dexare/compare/v2.2.1...v2.2.2
 [2.2.3]: https://github.com/Dexare/Dexare/compare/v2.2.2...v2.2.3
 [2.2.4]: https://github.com/Dexare/Dexare/compare/v2.2.3...v2.2.4
+[3.0.0]: https://github.com/Dexare/Dexare/compare/v2.2.4...v3.0.0
