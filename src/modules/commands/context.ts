@@ -55,10 +55,7 @@ export default class CommandContext {
     return this.client.bot.createMessage(this.channel.id, content, file);
   }
 
-  /**
-   * Sends a message with the author's mention prepended to it.
-   * Only prepends in guild channels.
-   */
+  /** Sends a message replying to the original message. */
   reply(content: Eris.MessageContent, file?: Eris.FileContent | Eris.FileContent[]) {
     if (typeof content === 'string') content = { content };
     content.messageReference = {
