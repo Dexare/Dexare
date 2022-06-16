@@ -4,7 +4,11 @@
   "description": "Modular and extendable Discord bot framework",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "author": "Snazzah",
+  "author": {
+    "name": "Snazzah",
+    "email": "me@snazzah.com",
+    "url": "https://snazzah.com/"
+  },
   "license": "MIT",
   "repository": "https://github.com/Dexare/Dexare",
   "bugs": {
@@ -40,7 +44,6 @@
   "dependencies": {
     "@discordjs/collection": "0.1.6",
     "common-tags": "^1.8.2",
-    "eris": "https://github.com/abalabahaha/eris#072db2e78ce83fc50d70a21f26f51781f725fa20",
     "eventemitter3": "^4.0.7",
     "lodash": "^4.17.21"
   },
@@ -51,6 +54,7 @@
     "@types/ws": "^8.2.2",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
+    "eris": "^0.17.0",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -59,5 +63,8 @@
     "prettier": "^2.5.1",
     "ts-node": "^10.4.0",
     "typescript": "^4.5.5"
+  },
+  "peerDependencies": {
+    "eris": "^0.17.0"
   }
 }

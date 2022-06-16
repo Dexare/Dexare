@@ -20,7 +20,7 @@ export interface ErisEvents {
   channelUpdate:
     | ((
         channel: Eris.AnyGuildChannel,
-        oldChannel: Eris.OldGuildChannel | Eris.OldGuildTextChannel | Eris.OldGuildVoiceChannel
+        oldChannel: Eris.OldGuildChannel | Eris.OldGuildTextChannel | Eris.OldTextVoiceChannel
       ) => void)
     | ((channel: Eris.GroupChannel, oldChannel: Eris.OldGroupChannel) => void);
 
