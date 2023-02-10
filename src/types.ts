@@ -4,7 +4,7 @@ import DexareCommand from './modules/commands/command';
 /** @hidden */
 export type ErisEvents = {
   [K in keyof Eris.ClientEvents]: (...args: Eris.ClientEvents[K]) => void;
-}
+};
 
 /** @hidden */
 interface LoggerExtraBase {
