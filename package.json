@@ -31,15 +31,11 @@
   "scripts": {
     "build": "npx rimraf lib && npx tsc",
     "build:prepare": "npx shx test -d ./lib || npm run build",
-    "changelog": "npx ts-node scripts/changelog",
-    "lint": "npx eslint --ext .ts ./src",
-    "lint:fix": "npx eslint --ext .ts ./src --fix",
-    "gpr": "npx ts-node scripts/gpr",
-    "prepare": "npx husky install && npm run build:prepare",
+    "changelog": "ts-node scripts/changelog",
+    "lint": "eslint --ext .ts ./src",
+    "lint:fix": "eslint --ext .ts ./src --fix",
+    "gpr": "ts-node scripts/gpr",
     "prepublishOnly": "(npx shx test -d ./lib || (echo \"lib folder does not exist\" && exit 1)) && npm run lint:fix"
-  },
-  "lint-staged": {
-    "*.ts": "eslint --fix"
   },
   "dependencies": {
     "@discordjs/collection": "0.1.6",
@@ -54,7 +50,7 @@
     "@types/ws": "^8.2.2",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
-    "eris": "^0.17.0",
+    "eris": "^0.17.1",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
@@ -63,6 +59,6 @@
     "typescript": "^4.5.5"
   },
   "peerDependencies": {
-    "eris": "^0.17.0"
+    "eris": "^0.17.1 || github:projectdysnomia/dysnomia"
   }
 }
