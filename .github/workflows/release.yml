@@ -58,7 +58,7 @@ jobs:
         run: pnpm run build
 
       - name: Publish Package
-        run: pnpm publish
+        run: pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -107,6 +107,6 @@ jobs:
         run: pnpm run build && pnpm run gpr
 
       - name: Publish Package
-        run: pnpm publish
+        run: pnpm publish --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
