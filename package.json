@@ -29,13 +29,13 @@
     "url": "https://github.com/sponsors/Snazzah"
   },
   "scripts": {
-    "build": "npx rimraf lib && npx tsc",
-    "build:prepare": "npx shx test -d ./lib || npm run build",
+    "build": "rimraf lib && tsc",
+    "build:prepare": "shx test -d ./lib || npm run build",
     "changelog": "ts-node scripts/changelog",
     "lint": "eslint --ext .ts ./src",
     "lint:fix": "eslint --ext .ts ./src --fix",
     "gpr": "ts-node scripts/gpr",
-    "prepublishOnly": "(npx shx test -d ./lib || (echo \"lib folder does not exist\" && exit 1)) && npm run lint:fix"
+    "prepublishOnly": "(shx test -d ./lib || (echo \"lib folder does not exist\" && exit 1)) && npm run lint:fix"
   },
   "dependencies": {
     "@discordjs/collection": "0.1.6",
@@ -45,18 +45,20 @@
   },
   "devDependencies": {
     "@types/common-tags": "^1.8.1",
-    "@types/lodash": "^4.14.178",
-    "@types/node": "^17.0.13",
-    "@types/ws": "^8.2.2",
-    "@typescript-eslint/eslint-plugin": "^5.10.1",
-    "@typescript-eslint/parser": "^5.10.1",
+    "@types/lodash": "^4.14.191",
+    "@types/node": "^17.0.45",
+    "@types/ws": "^8.5.4",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
     "eris": "^0.17.1",
-    "eslint": "^8.7.0",
+    "eslint": "^8.33.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "prettier": "^2.5.1",
-    "ts-node": "^10.4.0",
-    "typescript": "^4.5.5"
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.4",
+    "rimraf": "^4.1.2",
+    "shx": "^0.3.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.5"
   },
   "peerDependencies": {
     "eris": "^0.17.1 || github:projectdysnomia/dysnomia"
