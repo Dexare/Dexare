@@ -74,7 +74,7 @@ jobs:
         with:
           node-version: 18.x
           registry-url: 'https://npm.pkg.github.com/'
-          scope: '@snazzah'
+          scope: '@dexare'
 
       - name: Install Node v18
         uses: actions/setup-node@v3
