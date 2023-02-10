@@ -107,6 +107,6 @@ jobs:
         run: pnpm run build && pnpm run gpr
 
       - name: Publish Package
-        run: pnpm publish --no-git-checks
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
