@@ -31,10 +31,10 @@
   "scripts": {
     "build": "rimraf lib && tsc",
     "build:prepare": "shx test -d ./lib || npm run build",
-    "changelog": "ts-node scripts/changelog",
+    "changelog": "tsx scripts/changelog",
     "lint": "eslint --ext .ts ./src",
     "lint:fix": "eslint --ext .ts ./src --fix",
-    "gpr": "ts-node scripts/gpr",
+    "gpr": "tsx scripts/gpr",
     "prepublishOnly": "(shx test -d ./lib || (echo \"lib folder does not exist\" && exit 1)) && npm run lint:fix"
   },
   "dependencies": {
@@ -57,10 +57,10 @@
     "prettier": "^2.8.4",
     "rimraf": "^4.1.2",
     "shx": "^0.3.4",
-    "ts-node": "^10.9.1",
+    "tsx": "^3.12.6",
     "typescript": "^4.9.5"
   },
   "peerDependencies": {
-    "eris": "^0.17.1 || github:projectdysnomia/dysnomia"
+    "eris": "*"
   }
 }
